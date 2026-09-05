@@ -59,7 +59,12 @@ const emit = defineEmits<{
 <!-- Top Bar CSS -->
 <style scoped>
 .topbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
   display: flex;
+  width: 100%;
+  box-sizing: border-box;
   align-items: center;
   justify-content: space-between;
   padding: 1rem 1.5rem;
@@ -109,7 +114,7 @@ const emit = defineEmits<{
   cursor: pointer;
   padding: 0.6rem;
   border-radius: 12px;
-  color: #6272a4;
+  color: #4DF0BA;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -117,8 +122,15 @@ const emit = defineEmits<{
 }
 
 .topbar__icon-btn:hover {
-  background: #44475a;
-  color: #f8f8f2;
+  background: #0e382d;
+  color: #4DF0BA;
+  filter: brightness(1.25) drop-shadow(0 0 8px rgba(146, 255, 211, 0.7));
+  transform: scale(1.05);
+}
+
+.topbar__icon-btn:active {
+  filter: brightness(0.75);
+  transform: scale(0.95);
 }
 
 .topbar__badge {
