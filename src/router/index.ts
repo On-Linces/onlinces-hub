@@ -6,6 +6,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import DashboardView from '../views/DashboardView.vue'
 import ProfileView from '../views/ProfileView.vue'
+import ConfigView from '../views/ConfigView.vue'
 
 const router = createRouter({
   // createWebHistory = URLs normales (/perfil)
@@ -20,8 +21,13 @@ const router = createRouter({
       path: '/perfil',
       name: 'profile',
       component: ProfileView
+    },
+    {
+      path: '/configuracion',
+      name: 'config',
+      component: ConfigView
     }
-    // TO-DO: rutas configuracion, /comunidad, /proyectos,
+    // TO-DO: rutas, /comunidad, /proyectos,
   ]
 })
 

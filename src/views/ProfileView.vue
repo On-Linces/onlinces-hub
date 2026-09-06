@@ -6,6 +6,10 @@
 // ============================================================
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+
+// ============================================================
+//                 COMPONENTES DEL PERFIL
+// ============================================================
 import CardShell from '../components/dashboard/CardShell.vue'
 
 const router = useRouter()
@@ -260,17 +264,17 @@ const cancelEdit = () => {
   align-self: flex-start;
   background: none;
   border: none;
-  color: #9ca3af;
-  font-family: 'Fira Code', monospace;
+  color: var(--text-muted);
+  font-family: var(--font-family);
   font-size: 1rem;
   cursor: pointer;
   padding: 0.5rem 0;
   margin-bottom: 1.5rem;
-  transition: color 0.2s ease;
+  transition: color var(--transition-speed) ease;
 }
 
 .profile-view__back:hover {
-  color: #bd93f9;
+  color: var(--accent-purple);
 }
 
 .profile-content {
@@ -283,29 +287,27 @@ const cancelEdit = () => {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid var(--border-color);
   padding-bottom: 2rem;
 }
 
-/* Base del avatar como <button>: reseteamos los estilos por
-   defecto del navegador (borde, fondo, padding, fuente) antes de
-   aplicar la apariencia circular que ya teníamos */
+/* Avatar */
 .profile-header__avatar {
   position: relative;
   width: 120px;
   height: 120px;
   border-radius: 50%;
-  background: #44475a;
-  border: 3px solid #bd93f9;
+  background: var(--bg-card);
+  border: 3px solid var(--accent-purple);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-family);
   font-size: 2.5rem;
   font-weight: 700;
-  color: #f8f8f2;
+  color: var(--text-primary);
   overflow: hidden;
-  box-shadow: 0 0 20px rgba(189, 147, 249, 0.3);
+  box-shadow: 0 0 20px var(--accent-purple-glow);
   padding: 0;
   cursor: default;
 }
@@ -324,8 +326,7 @@ const cancelEdit = () => {
   object-fit: cover;
 }
 
-/* Capa semitransparente con el ícono de cámara, encima de la foto,
-   solo presente en modo edición */
+/* Overlay de cámara */
 .profile-header__avatar-overlay {
   position: absolute;
   inset: 0;
@@ -334,23 +335,20 @@ const cancelEdit = () => {
   justify-content: center;
   background: rgba(0, 0, 0, 0.45);
   opacity: 0;
-  transition: opacity 0.2s ease;
+  transition: opacity var(--transition-speed) ease;
 }
 
 .profile-header__avatar-overlay svg {
   width: 32px;
   height: 32px;
-  color: #f8f8f2;
+  color: var(--text-primary);
 }
 
 .profile-header__avatar--editable:hover .profile-header__avatar-overlay {
   opacity: 1;
 }
 
-/* El <input type="file"> real nunca se ve: se activa solo por
-   código (triggerAvatarPicker). Ocultarlo así (en vez de
-   display:none) mantiene el elemento accesible para lectores de
-   pantalla y navegación por teclado. */
+/* Input oculto para archivos */
 .profile-header__avatar-input {
   position: absolute;
   width: 1px;
@@ -363,19 +361,20 @@ const cancelEdit = () => {
   border: 0;
 }
 
+/* Botón Editar */
 .btn-edit {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  background: rgba(189, 147, 249, 0.15);
-  color: #bd93f9;
-  border: 1px solid rgba(189, 147, 249, 0.4);
+  background: var(--accent-purple-dim);
+  color: var(--accent-purple);
+  border: 1px solid var(--accent-purple);
   padding: 0.6rem 1.2rem;
-  border-radius: 12px;
-  font-family: 'Fira Code', monospace;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-family);
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all var(--transition-speed) ease;
 }
 
 .btn-edit svg {
@@ -384,10 +383,12 @@ const cancelEdit = () => {
 }
 
 .btn-edit:hover {
-  background: rgba(189, 147, 249, 0.3);
-  box-shadow: 0 0 15px rgba(189, 147, 249, 0.4);
+  background: var(--accent-purple);
+  color: var(--text-primary);
+  box-shadow: 0 0 15px var(--accent-purple-glow);
 }
 
+/* Acciones de edición */
 .edit-actions {
   display: flex;
   gap: 1rem;
@@ -398,10 +399,10 @@ const cancelEdit = () => {
   color: #ff5555;
   border: 1px solid rgba(255, 85, 85, 0.4);
   padding: 0.6rem 1.2rem;
-  border-radius: 12px;
-  font-family: 'Fira Code', monospace;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-family);
   cursor: pointer;
-  transition: background 0.2s ease;
+  transition: background var(--transition-speed) ease;
 }
 
 .btn-cancel:hover {
@@ -409,22 +410,24 @@ const cancelEdit = () => {
 }
 
 .btn-save {
-  background: #bd93f9;
-  color: #282a36;
+  background: var(--accent-purple);
+  color: var(--text-primary);
   border: none;
   padding: 0.6rem 1.2rem;
-  border-radius: 12px;
-  font-family: 'Fira Code', monospace;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-family);
   font-weight: 700;
   cursor: pointer;
-  transition: transform 0.2s ease;
+  transition: transform var(--transition-speed) ease,
+              box-shadow var(--transition-speed) ease;
 }
 
 .btn-save:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(189, 147, 249, 0.4);
+  transform: var(--hover-transform);
+  box-shadow: 0 4px 15px var(--accent-purple-glow);
 }
 
+/* Grid de campos */
 .profile-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -439,37 +442,38 @@ const cancelEdit = () => {
 
 .profile-field .label,
 .profile-field label {
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-family);
   font-size: 0.85rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: #6272a4;
+  color: var(--text-muted);
 }
 
 .profile-field .value {
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-family);
   font-size: 1.15rem;
-  color: #f8f8f2;
+  color: var(--text-primary);
 }
 
 .profile-field .readonly {
-  color: #ccd3e0;
+  color: var(--text-muted);
 }
 
 .profile-field input {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: var(--bg-hover);
+  border: 1px solid var(--border-color);
   padding: 0.8rem 1rem;
-  border-radius: 8px;
-  color: #f8f8f2;
-  font-family: 'Fira Code', monospace;
+  border-radius: var(--radius-xs);
+  color: var(--text-primary);
+  font-family: var(--font-family);
   font-size: 1rem;
   outline: none;
-  transition: border-color 0.2s ease, background 0.2s ease;
+  transition: border-color var(--transition-speed) ease,
+              background var(--transition-speed) ease;
 }
 
 .profile-field input:focus {
-  border-color: #bd93f9;
-  background: rgba(189, 147, 249, 0.05);
+  border-color: var(--accent-purple);
+  background: var(--accent-purple-dim);
 }
 </style>

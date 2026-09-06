@@ -37,9 +37,9 @@ withDefaults(defineProps<Props>(), {
 }
 
 .welcome-header__greeting {
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-family);
   font-size: 1.1rem;
-  color: #f8f8f2;
+  color: var(--text-muted);
   opacity: 0.6;
   margin: 0 0 0.5rem;
 }
@@ -47,10 +47,10 @@ withDefaults(defineProps<Props>(), {
 .welcome-header__name {
   position: relative;
   display: inline-block;
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-family);
   font-size: 5rem;
   font-weight: 700;
-  color: #f8f8f2;
+  color: var(--text-primary);
   margin: 0;
   padding-bottom: 0.4rem;
 }
@@ -62,9 +62,9 @@ withDefaults(defineProps<Props>(), {
   transform: translateX(-50%);
   width: 40px;
   height: 3px;
-  background: #4DF0BA;
+  background: var(--accent-teal);
   border-radius: 999px;
-  transition: width 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+  transition: width var(--transition-speed) cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .welcome-header__name:hover .welcome-header__underline {

@@ -4,11 +4,21 @@
 // ============================================================
 //                        BARRA SUPERIOR
 // ============================================================
+import { computed } from 'vue'
+import { useTheme } from '../../composables/useTheme'
 
 // ============================================================
 //                       ASSETS ESTÁTICOS
 // ============================================================
-import logo from '../../assets/images/logo.webp'
+import logoDark from '../../assets/images/logo_dark.webp'
+import logoLight from '../../assets/images/logo_light.webp'
+
+const { settings } = useTheme()
+
+// Si el tema es light, usa la versión light; si no, la dark.
+const currentLogo = computed(() => 
+  settings.value.colorTheme === 'light' ? logoLight : logoDark
+)
 
 // BACKEND: 
 // Estos 3 parametros son exactamente lo que necesita recibir
@@ -39,7 +49,7 @@ const emit = defineEmits<{
     <header class="topbar">
         <!-- Logo + nombre de pagina -->
         <div class="topbar__brand">
-            <img :src="logo" alt="OnLinces" class="topbar__logo" />
+            <img :src="currentLogo" alt="OnLinces" class="topbar__logo" />
             <span class="topbar__title">
                 <span class="title__keyword">community</span><span class="title__method">.hub</span><span class="title__parens">()</span>
             </span>
@@ -94,15 +104,19 @@ const emit = defineEmits<{
   justify-content: space-between;
   padding: 0.8rem 1.5rem;
 
-  background: rgba(40, 42, 54, 0.65);
-  backdrop-filter: blur(12px) saturate(160%);
-  -webkit-backdrop-filter: blur(12px) saturate(160%);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 20px;
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  background: var(--bg-surface);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-glow);
 
-  font-family: 'Fira Code', Consolas, Monaco, monospace;
-  color: #f8f8f2;
+  font-family: var(--font-family);
+  color: var(--text-primary);
+  transition: background var(--transition-speed),
+              border var(--transition-speed),
+              color var(--transition-speed),
+              box-shadow var(--transition-speed);
 }
 
 .topbar__brand {
@@ -119,11 +133,12 @@ const emit = defineEmits<{
 .topbar__title {
   font-size: 1.3rem;
   letter-spacing: 0.5px;
+  color: var(--text-primary);
 }
 
-.title__keyword { color: #bd93f9; }
-.title__method  { color: #f8f8f2; }
-.title__parens  { color: #ff79c6; }
+.title__keyword { color: var(--accent-purple); }
+.title__method  { color: var(--text-primary); }
+.title__parens  { color: var(--accent-pink); }
 
 .topbar__actions {
   display: flex;
@@ -133,28 +148,21 @@ const emit = defineEmits<{
 
 .topbar__icon-btn {
   position: relative;
-  background: rgba(30, 31, 41, 0.7);
-  border: 1px solid rgba(77, 240, 186, 0.2);
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
   cursor: pointer;
   padding: 0.6rem;
-  border-radius: 12px;
-  color: #4DF0BA;
+  border-radius: var(--radius-sm);
+  color: var(--accent-teal);
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s ease;
+  transition: all var(--transition-speed) ease;
 }
 
 .topbar__icon-btn:hover {
-  background: #0e382d;
-  color: #4DF0BA;
-  filter: brightness(1.25) drop-shadow(0 0 8px rgba(146, 255, 211, 0.7));
-  transform: scale(1.05);
-}
-
-.topbar__icon-btn:active {
-  filter: brightness(0.75);
-  transform: scale(0.95);
+  filter: brightness(1.25);
+  transform: var(--hover-scale);
 }
 
 .topbar__badge {
@@ -176,21 +184,22 @@ const emit = defineEmits<{
   background: none;
   border: none;
   cursor: pointer;
-  color: #f8f8f2;
+  color: var(--text-primary);
 }
 
 .topbar__avatar {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: #44475a;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 600;
   font-size: 1rem;
   overflow: hidden;
+  color: var(--text-primary);
 }
 
 .topbar__avatar img {
@@ -202,5 +211,6 @@ const emit = defineEmits<{
 .topbar__username {
   font-size: 1.1rem;
   font-weight: 400;
+  color: var(--text-primary);
 }
 </style>
