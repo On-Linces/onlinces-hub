@@ -18,6 +18,11 @@ body {
 
 body {
   font-family: 'Fira Code', ui-monospace, Consolas, monospace;
-  background: #282a36;
+  background-color: #282a36;
+  background-image: url('./assets/images/background_dark.png');
+  background-repeat: repeat;
+  background-position: center top;
+  background-size: 1000px auto;
+  background-attachment: fixed;
   color: #f8f8f2;
 }
