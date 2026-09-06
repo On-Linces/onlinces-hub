@@ -26,3 +26,73 @@ body {
   background-attachment: fixed;
   color: #f8f8f2;
 }
+
+/* ==========================================================
+   ESTADO BASE (Oscuro, Redondeado, Efectos Encendidos)
+========================================================== */
+:root {
+  /* Colores - Tema Oscuro */
+  --bg-body: #11141e;
+  --bg-surface: rgba(17, 20, 30, 0.92);
+  --bg-card: rgba(11, 12, 16, 0.65);
+  --text-primary: #f8f8f2;
+  --text-muted: #9ca3af;
+  --border-color: rgba(255, 255, 255, 0.1);
+  --glass-blur: blur(12px) saturate(160%);
+  
+  /* Geometría - Estilo Redondeado */
+  --radius-lg: 24px;
+  --radius-md: 20px;
+  --radius-sm: 12px;
+  --radius-xs: 8px;
+  
+  /* Animaciones y Efectos - Encendidos */
+  --hover-transform: translateY(-2px);
+  --hover-scale: scale(1.05);
+  --shadow-glow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  --transition-speed: 0.3s;
+}
+
+/* ==========================================================
+   MODIFICADOR: Tema Blanco (.theme-light)
+========================================================== */
+.theme-light {
+  --bg-body: #f8fafc;
+  --bg-surface: rgba(255, 255, 255, 0.9);
+  --bg-card: rgba(255, 255, 255, 0.7);
+  --text-primary: #1e293b;
+  --text-muted: #64748b;
+  --border-color: rgba(0, 0, 0, 0.1);
+  --shadow-glow: 0 4px 20px 0 rgba(0, 0, 0, 0.05);
+}
+
+/* ==========================================================
+   MODIFICADOR: Estilo Plano (.style-flat)
+========================================================== */
+.style-flat {
+  --radius-lg: 0px;
+  --radius-md: 0px;
+  --radius-sm: 0px;
+  --radius-xs: 0px;
+  --glass-blur: none; /* Apaga el Glassmorphism */
+  
+  /* Vuelve los fondos sólidos si no hay glassmorphism */
+  --bg-surface: #1e2638; 
+  --bg-card: #0b0e14;
+}
+
+/* Compatibilidad de tema claro con estilo plano */
+.theme-light.style-flat {
+  --bg-surface: #ffffff;
+  --bg-card: #f1f5f9;
+}
+
+/* ==========================================================
+   MODIFICADOR: Efectos Apagados (.effects-off)
+========================================================== */
+.effects-off {
+  --hover-transform: none;
+  --hover-scale: none;
+  --shadow-glow: none;
+  --transition-speed: 0s; /* Apaga las transiciones */
+}

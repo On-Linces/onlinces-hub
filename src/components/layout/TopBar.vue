@@ -4,11 +4,21 @@
 // ============================================================
 //                        BARRA SUPERIOR
 // ============================================================
+import { computed } from 'vue'
+import { useTheme } from '../../composables/useTheme'
 
 // ============================================================
 //                       ASSETS ESTÁTICOS
 // ============================================================
-import logo from '../../assets/images/logo.webp'
+import logoDark from '../../assets/images/logo_dark.webp'
+import logoLight from '../../assets/images/logo_light.webp'
+
+const { settings } = useTheme()
+
+// Si el tema es light, usa la versión light; si no, la dark.
+const currentLogo = computed(() => 
+  settings.value.colorTheme === 'light' ? logoLight : logoDark
+)
 
 // BACKEND: 
 // Estos 3 parametros son exactamente lo que necesita recibir
@@ -39,7 +49,7 @@ const emit = defineEmits<{
     <header class="topbar">
         <!-- Logo + nombre de pagina -->
         <div class="topbar__brand">
-            <img :src="logo" alt="OnLinces" class="topbar__logo" />
+            <img :src="currentLogo" alt="OnLinces" class="topbar__logo" />
             <span class="topbar__title">
                 <span class="title__keyword">community</span><span class="title__method">.hub</span><span class="title__parens">()</span>
             </span>

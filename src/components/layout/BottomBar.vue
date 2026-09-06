@@ -1,7 +1,24 @@
 <!-- src/components/layout/BottomBar.vue -->
 
 <script setup lang="ts">
-import logo from '../../assets/images/logo.webp'
+// ============================================================
+//                        BARRA INFERIOR
+// ============================================================
+import { computed } from 'vue'
+import { useTheme } from '../../composables/useTheme'
+
+// ============================================================
+//                       ASSETS ESTÁTICOS
+// ============================================================
+import logoDark from '../../assets/images/logo_dark.webp'
+import logoLight from '../../assets/images/logo_light.webp'
+
+const { settings } = useTheme()
+
+// Si el tema es light, usa la versión light; si no, la dark.
+const currentLogo = computed(() => 
+  settings.value.colorTheme === 'light' ? logoLight : logoDark
+)
 
 interface InternalLink {
   label: string
@@ -51,7 +68,7 @@ const currentYear = new Date().getFullYear()
         <div class="brandCol">
           <RouterLink to="/" class="brand">
             <div class="logoBox">
-              <img :src="logo" alt="On Linces" class="logoImg" />
+              <img :src="currentLogo" alt="OnLinces" class="topbar__logo" />
             </div>
             <span class="brandName">On Linces</span>
           </RouterLink>

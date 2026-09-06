@@ -64,10 +64,12 @@ const router = useRouter()
           Perfil
         </CardLink>
 
-        <!-- TO-DO: navegacion individual de cada apartado-->
-        <CardLink type="configuracion" accent="purple">Configuración</CardLink>
+        <CardLink type="configuracion" accent="purple" @click="router.push('/configuracion')">
+          Configuración
+        </CardLink>
       </DashboardCard>
 
+      <!-- TO-DO: navegacion individual de cada apartado-->
       <DashboardCard title="Comunidad" accent="teal">
         <template #icon>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
