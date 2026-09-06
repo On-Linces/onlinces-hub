@@ -31,7 +31,7 @@ import CardLink from './components/dashboard/CardLink.vue'
       </template>
 
       <CardLink type="miembros" accent="teal">Miembros</CardLink>
-      <CardLink type="proyectos" accent="teal">Proyectos</CardLink>
+      <CardLink type="galeria" accent="teal">Galeria</CardLink>
     </DashboardCard>
   </main>
 </template>
@@ -41,7 +41,6 @@ import CardLink from './components/dashboard/CardLink.vue'
   display: flex;
   gap: 1.5rem;
   padding: 2rem;
-  background: #282a36;
-  min-height: 100vh;
+  background: transparent;
 }
 </style>

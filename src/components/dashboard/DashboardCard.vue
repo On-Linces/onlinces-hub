@@ -30,14 +30,14 @@ withDefaults(defineProps<Props>(), {
 .dashboard-card {
   --accent-color: #4df0ba;
   --accent-bg: rgba(77, 240, 186, 0.1);
-  --accent-glow: rgba(77, 240, 186, 0.7);
+  --accent-glow: rgba(77, 240, 186, 0.4);
   --grid-line: rgba(77, 240, 186, 0.15);
 }
 
 .dashboard-card--purple {
   --accent-color: #bd93f9;
   --accent-bg: rgba(189, 147, 249, 0.1);
-  --accent-glow: rgba(189, 147, 249, 0.7);
+  --accent-glow: rgba(189, 147, 249, 0.4);
   --grid-line: rgba(189, 147, 249, 0.15);
 }
 
@@ -46,20 +46,25 @@ withDefaults(defineProps<Props>(), {
   min-width: 320px;
   max-width: 600px;
   height: fit-content;
-  background: #0b0c10;
+
+  background: rgba(11, 12, 16, 0.65);
+  backdrop-filter: blur(12px) saturate(160%);
+  -webkit-backdrop-filter: blur(12px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  
   border-radius: 24px;
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
   position: relative;
   overflow: hidden;
-  border: 1px solid transparent;
-  transition: border-color 0.4s ease, box-shadow 0.4s ease;
+  transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.3s ease;
 }
 
 .dashboard-card:hover {
   border-color: var(--accent-color);
-  box-shadow: 0 0 24px var(--accent-glow);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37), 0 0 24px var(--accent-glow);
+  transform: translateY(-2px);
 }
 
 .dashboard-card::before {
@@ -115,6 +120,7 @@ withDefaults(defineProps<Props>(), {
   width: 60px;
   height: 60px;
   background: var(--accent-bg);
+  border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 16px;
   display: flex;
   justify-content: center;
@@ -132,6 +138,7 @@ withDefaults(defineProps<Props>(), {
 .dashboard-card__title-pill {
   background: var(--accent-bg);
   color: var(--accent-color);
+  border: 1px solid rgba(255, 255, 255, 0.05);
   padding: 0.5rem 1.2rem;
   border-radius: 20px;
   font-family: 'Fira Code', monospace;

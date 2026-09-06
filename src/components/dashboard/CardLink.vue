@@ -1,7 +1,7 @@
 <script setup lang="ts">
 interface Props {
   accent?: 'teal' | 'purple'
-  type: 'perfil' | 'configuracion' | 'miembros' | 'proyectos'
+  type: 'perfil' | 'configuracion' | 'miembros' | 'galeria'
 }
 
 withDefaults(defineProps<Props>(), {
@@ -35,8 +35,10 @@ defineEmits<{
           <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/>
         </g>
         
-        <g v-else-if="type === 'proyectos'">
-          <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2l.5-.5a5.4 5.4 0 00-3-3l-.5.5z"/><path d="M12 2.5s2 1.5 3 4c1 2.5 1 5 1 5l-4-4s-2.5 0-5-1c-2.5-1-4-3-4-3s2.5.5 5 1z"/><path d="M19.5 4.5l-4 4"/>
+        <g v-else-if="type === 'galeria'">
+          <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+          <circle cx="8.5" cy="8.5" r="1.5"/>
+          <polyline points="21 15 16 10 5 21"/>
         </g>
 
       </svg>
@@ -104,7 +106,7 @@ defineEmits<{
   stroke-width: 1.5;
   stroke-linecap: round;
   stroke-linejoin: round;
-  opacity: 0.35;
+  opacity: 0.55;
   transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 

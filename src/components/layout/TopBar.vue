@@ -60,15 +60,24 @@ const emit = defineEmits<{
 <style scoped>
 .topbar {
   position: sticky;
-  top: 0;
+  top: 1rem;
   z-index: 100;
   display: flex;
-  width: 100%;
+  width: calc(100% - 2rem);
+  max-width: 1400px;
+  margin: 0 auto 1.5rem auto;
   box-sizing: border-box;
   align-items: center;
   justify-content: space-between;
-  padding: 1rem 1.5rem;
-  background: #282a36;
+  padding: 0.8rem 1.5rem;
+  
+  background: rgba(40, 42, 54, 0.65);
+  backdrop-filter: blur(12px) saturate(160%);
+  -webkit-backdrop-filter: blur(12px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+
   font-family: 'Fira Code', Consolas, Monaco, monospace;
   color: #f8f8f2;
 }
@@ -80,7 +89,7 @@ const emit = defineEmits<{
 }
 
 .topbar__logo {
-  height: 48px;
+  height: 40px;
   width: auto;
 }
 
@@ -109,8 +118,8 @@ const emit = defineEmits<{
 
 .topbar__icon-btn {
   position: relative;
-  background: #1e1f29;
-  border: none;
+  background: rgba(30, 31, 41, 0.7);
+  border: 1px solid rgba(77, 240, 186, 0.2);
   cursor: pointer;
   padding: 0.6rem;
   border-radius: 12px;
@@ -156,10 +165,11 @@ const emit = defineEmits<{
 }
 
 .topbar__avatar {
-  width: 44px;
-  height: 44px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   background: #44475a;
+  border: 1px solid rgba(255, 255, 255, 0.1);
   display: flex;
   align-items: center;
   justify-content: center;
