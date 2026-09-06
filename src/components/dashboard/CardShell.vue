@@ -1,5 +1,9 @@
 <!-- src/components/dashboard/CardShell.vue -->
+
 <script setup lang="ts">
+// ============================================================
+//             BASE VISUAL para Dashboard Cards
+// ============================================================
 interface Props {
   title: string
   accent?: 'purple' | 'teal' | 'pink'
@@ -18,12 +22,14 @@ withDefaults(defineProps<Props>(), {
     :class="[`card-shell--${accent}`, { 'card-shell--full': fullWidth }]"
   >
     <div class="card-shell__header">
+      <!-- El ícono lo define quien use el componente (App.vue) -->
       <div class="card-shell__icon">
         <slot name="icon" />
       </div>
       <div class="card-shell__title-pill">{{ title }}</div>
     </div>
 
+    <!-- Slot por defecto: del carrusel de proyectos -->
     <div class="card-shell__body">
       <slot />
     </div>
@@ -31,6 +37,9 @@ withDefaults(defineProps<Props>(), {
 </template>
 
 <style scoped>
+/* ============================================================
+                        CSS STYLES
+============================================================ */
 .card-shell {
   --accent-color: #4df0ba;
   --accent-bg: rgba(77, 240, 186, 0.1);
@@ -81,7 +90,7 @@ withDefaults(defineProps<Props>(), {
 .card-shell:hover {
   border-color: var(--accent-color);
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37), 0 0 24px var(--accent-glow);
-  transform: translateY(-2px);
+  transform: translateY(-2px); /* leve "levantamiento" al pasar el mouse */
 }
 
 .card-shell::before {

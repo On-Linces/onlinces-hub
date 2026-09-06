@@ -1,5 +1,9 @@
 <!-- src/components/layout/BottomBar.vue -->
+
 <script setup lang="ts">
+// ============================================================
+//                        BARRA INFERIOR
+// ============================================================
 
 interface LinkItem {
   label: string
@@ -22,6 +26,7 @@ const legalLinks: LinkItem[] = [
 <template>
   <footer class="bottombar">
     <div class="bottombar__main">
+      <!-- Descripción del club + link a la página pública -->
       <div class="bottombar__brand">
         <p class="bottombar__description">
           <a href="https://onlinces.net/" target="_blank" rel="noopener noreferrer" class="bottombar__brand-link">
@@ -68,6 +73,9 @@ const legalLinks: LinkItem[] = [
 </template>
 
 <style scoped>
+/* ============================================================
+                        CSS STYLES
+============================================================ */
 .bottombar {
   margin: 2rem auto 1rem auto;
   width: calc(100% - 2rem);

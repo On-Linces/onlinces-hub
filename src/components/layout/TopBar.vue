@@ -1,27 +1,43 @@
 <!-- src/components/layout/TopBar.vue -->
-<script setup lang="ts">
-import logo from '/src/assets/images/logo.webp'
 
+<script setup lang="ts">
+// ============================================================
+//                        BARRA SUPERIOR
+// ============================================================
+
+// ============================================================
+//                       ASSETS ESTÁTICOS
+// ============================================================
+import logo from './assets/images/logo.webp'
+
+// BACKEND: 
+// Estos 3 parametros son exactamente lo que necesita recibir
+// del sistema de sesión/SSO cuando exista. No hace falta cambiar
+// nada de este componente: solo quien lo usa debe pasarle valores
+// reales en vez de los defaults de abajo.
 interface Props {
-    userName?: string
-    avatarUrl?: string
-    unreadNotifications?: number
+    userName?: string          // nombre a mostrar junto al avatar
+    avatarUrl?: string          // URL de la foto; si viene vacío, se
+                                 // muestra la inicial del nombre (ver template)
+    unreadNotifications?: number // cantidad para el badge de la campana
 }
 
 const props = withDefaults(defineProps<Props>(), {
-    userName: 'Invitado',
+    userName: 'Invitado',   // valor mientras no hay sesión iniciada
     avatarUrl: '',
     unreadNotifications: 0
 })
 
+// TO-DO: panel de notificaciones
 const emit = defineEmits<{
     notificationClick: []
-    profileClick:[]
+    profileClick: []
 }>()
 </script>
 
 <template>
     <header class="topbar">
+        <!-- Logo + nombre de pagina -->
         <div class="topbar__brand">
             <img :src="logo" alt="OnLinces" class="topbar__logo" />
             <span class="topbar__title">
@@ -30,6 +46,7 @@ const emit = defineEmits<{
         </div>
 
         <div class="topbar__actions">
+            <!-- Botón de notificaciones -->
             <button
                 class="topbar__icon-btn"
                 aria-label="Notificaciones"
@@ -40,13 +57,17 @@ const emit = defineEmits<{
                     <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
                 </svg>
 
+                <!-- El numero solo aparece si hay notificaciones sin leer -->
                 <span v-if="props.unreadNotifications > 0" class="topbar__badge">
                     {{ props.unreadNotifications }}
                 </span>
             </button>
 
+            <!-- Perfil de usuario -->
             <button class="topbar__profile" @click="emit('profileClick')">
                 <div class="topbar__avatar">
+                    <!-- Si hay avatarUrl (foto del SSO), se muestra la imagen.
+                         Si no, cae al fallback: inicial del nombre en mayúscula.-->
                     <img v-if="props.avatarUrl" :src="props.avatarUrl" :alt="props.userName" />
                     <span v-else>{{ props.userName.charAt(0).toUpperCase() }}</span>
                 </div>
@@ -56,8 +77,10 @@ const emit = defineEmits<{
     </header>
 </template>
 
-<!-- Top Bar CSS -->
 <style scoped>
+/* ============================================================
+                        CSS STYLES
+============================================================ */
 .topbar {
   position: sticky;
   top: 1rem;
@@ -70,7 +93,7 @@ const emit = defineEmits<{
   align-items: center;
   justify-content: space-between;
   padding: 0.8rem 1.5rem;
-  
+
   background: rgba(40, 42, 54, 0.65);
   backdrop-filter: blur(12px) saturate(160%);
   -webkit-backdrop-filter: blur(12px) saturate(160%);
@@ -98,17 +121,9 @@ const emit = defineEmits<{
   letter-spacing: 0.5px;
 }
 
-.title__keyword {
-  color: #bd93f9;
-}
-
-.title__method {
-  color: #f8f8f2;
-}
-
-.title__parens {
-  color: #ff79c6;
-}
+.title__keyword { color: #bd93f9; }
+.title__method  { color: #f8f8f2; }
+.title__parens  { color: #ff79c6; }
 
 .topbar__actions {
   display: flex;

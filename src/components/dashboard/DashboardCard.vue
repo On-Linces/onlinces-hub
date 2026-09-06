@@ -1,5 +1,9 @@
 <!-- src/components/dashboard/DashboardCard.vue -->
+
 <script setup lang="ts">
+// ============================================================
+//             TARJETA PEQUEÑA para el Dashboard
+// ============================================================
 import CardShell from './CardShell.vue'
 
 interface Props {
@@ -18,6 +22,7 @@ withDefaults(defineProps<Props>(), {
       <slot name="icon" />
     </template>
 
+    <!-- Los <CardLink> que se fabrican en (App.vue) usan esta estructura -->
     <div class="dashboard-card__links">
       <slot />
     </div>

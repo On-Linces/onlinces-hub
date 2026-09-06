@@ -1,5 +1,12 @@
 <!-- src/components/dashboard/WelcomeHeader.vue -->
+ 
 <script setup lang="ts">
+// ============================================================
+//                     SALUDO + NOMBRE
+// ============================================================
+
+// BACKEND: userName debe venir de la sesión real (mismo dato
+// que se le pasa a <TopBar>). Se menciona en App.vue.
 interface Props {
   userName?: string
 }
@@ -14,12 +21,16 @@ withDefaults(defineProps<Props>(), {
     <p class="welcome-header__greeting">Hola, bienvenido</p>
     <h1 class="welcome-header__name">
       {{ userName }}
+      <!-- Barra decorativa vacía -->
       <span class="welcome-header__underline" />
     </h1>
   </div>
 </template>
 
 <style scoped>
+/* ============================================================
+                        CSS STYLES
+============================================================ */
 .welcome-header {
   text-align: center;
   padding: 0.25rem 0 1.5rem;

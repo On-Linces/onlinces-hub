@@ -1,5 +1,9 @@
 <!-- src/components/dashboard/LargeDashboardCard.vue -->
+
 <script setup lang="ts">
+// ============================================================
+//             TARJETA LARGA para el carrusel
+// ============================================================
 import CardShell from './CardShell.vue'
 
 interface Props {
@@ -15,6 +19,7 @@ defineProps<Props>()
       <slot name="icon" />
     </template>
 
+    <!-- Los <ProjectCard> que se fabrican en (App.vue) usan esta estructura y forma el carrusel -->
     <div class="large-card__carousel">
       <slot />
     </div>
@@ -22,6 +27,7 @@ defineProps<Props>()
 </template>
 
 <style scoped>
+/* Carrusel con scroll nativo del navegador */
 .large-card__carousel {
   display: flex;
   gap: 1.25rem;

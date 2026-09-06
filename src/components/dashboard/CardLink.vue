@@ -1,4 +1,9 @@
+<!-- src/components/dashboard/CardLink.vue -->
+
 <script setup lang="ts">
+// ============================================================
+//             CONTENIDO DE LA TARJETA PEQUEÑA
+// ============================================================
 interface Props {
   accent?: 'teal' | 'purple'
   type: 'perfil' | 'configuracion' | 'miembros' | 'galeria'
@@ -9,6 +14,7 @@ withDefaults(defineProps<Props>(), {
   type: 'perfil'
 })
 
+// TO-DO: redireccionar al lugar especificado
 defineEmits<{
   click: []
 }>()
@@ -20,6 +26,7 @@ defineEmits<{
     :class="`card-link--${accent}`"
     @click="$emit('click')"
   >
+
     <div class="card-link__doodles">
       <svg v-for="i in 4" :key="i" :class="`doodle doodle-${i}`" viewBox="0 0 24 24">
         
@@ -51,6 +58,9 @@ defineEmits<{
 </template>
 
 <style scoped>
+/* ============================================================
+                        CSS STYLES
+============================================================ */
 .card-link {
   --hover-color: #4DF0BA;
   
@@ -70,6 +80,7 @@ defineEmits<{
   overflow: hidden;
 }
 
+/* Sobrescribe la variable de color cuando accent="purple" */
 .card-link--purple {
   --hover-color: #bd93f9;
 }
@@ -110,6 +121,7 @@ defineEmits<{
   transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
+/* Posición y animación individual de cada uno de los 4 doodles*/
 .card-link .doodle-1 { top: -5px; left: 5px; transform: rotate(-45deg) scale(0.6); }
 .card-link:hover .doodle-1 { transform: rotate(-15deg) scale(0.9) translate(5px, 8px); }
 

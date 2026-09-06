@@ -1,9 +1,13 @@
 <!-- src/components/dashboard/ProjectCard.vue -->
+
 <script setup lang="ts">
+// ============================================================
+//            TARJETA DE PROYECTO para el carrusel
+// ============================================================
 interface Props {
   image?: string
   title: string
-  description?: string 
+  description?: string
 }
 
 withDefaults(defineProps<Props>(), {
@@ -11,6 +15,7 @@ withDefaults(defineProps<Props>(), {
   description: ''
 })
 
+// TO-DO: abrir ventana emergente con informacion resumida del proyecto".
 const emit = defineEmits<{
   moreInfo: []
 }>()
@@ -18,9 +23,11 @@ const emit = defineEmits<{
 
 <template>
   <div class="project-card">
+    <!-- Si no hay imagen se muestra un fondo feo -->
     <img v-if="image" :src="image" :alt="title" class="project-card__img" />
     <div v-else class="project-card__placeholder"></div>
 
+    <!-- Overlay oculto para animacion -->
     <div class="project-card__overlay">
       <h4 class="project-card__title">{{ title }}</h4>
       <button class="project-card__btn" @click.stop="emit('moreInfo')">
@@ -31,6 +38,9 @@ const emit = defineEmits<{
 </template>
 
 <style scoped>
+/* ============================================================
+                        CSS STYLES
+============================================================ */
 .project-card {
   scroll-snap-align: start;
   flex: 0 0 500px;
@@ -42,8 +52,7 @@ const emit = defineEmits<{
   border: 3px solid rgba(255, 255, 255, 0.08);
 }
 
-
-.project-card__img, 
+.project-card__img,
 .project-card__placeholder {
   width: 100%;
   height: 100%;
