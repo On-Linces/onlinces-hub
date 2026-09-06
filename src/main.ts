@@ -1,5 +1,12 @@
-import { createApp } from 'vue'
-import './style.css'
-import App from './App.vue'
+// src/main.ts
 
-createApp(App).mount('#app')
+import { createApp } from 'vue'
+import App from './App.vue'
+import router from './router'
+import './style.css'
+
+const app = createApp(App)
+
+app.use(router) // usa <router-view>, <router-link>, useRouter(), para navegar entre pags.
+
+app.mount('#app')
