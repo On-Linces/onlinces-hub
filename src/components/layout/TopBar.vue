@@ -94,12 +94,12 @@ const emit = defineEmits<{
   justify-content: space-between;
   padding: 0.8rem 1.5rem;
 
-  background: rgba(40, 42, 54, 0.65);
-  backdrop-filter: blur(12px) saturate(160%);
-  -webkit-backdrop-filter: blur(12px) saturate(160%);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(17, 20, 30, 0.92);
+  backdrop-filter: blur(10px) saturate(140%);
+  -webkit-backdrop-filter: blur(10px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 20px;
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.55);
 
   font-family: 'Fira Code', Consolas, Monaco, monospace;
   color: #f8f8f2;
@@ -133,8 +133,8 @@ const emit = defineEmits<{
 
 .topbar__icon-btn {
   position: relative;
-  background: rgba(30, 31, 41, 0.7);
-  border: 1px solid rgba(77, 240, 186, 0.2);
+  background: rgba(30, 31, 41, 0.92);
+  border: 1px solid rgba(77, 240, 186, 0.28);
   cursor: pointer;
   padding: 0.6rem;
   border-radius: 12px;
@@ -184,7 +184,7 @@ const emit = defineEmits<{
   height: 40px;
   border-radius: 50%;
   background: #44475a;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.16);
   display: flex;
   align-items: center;
   justify-content: center;

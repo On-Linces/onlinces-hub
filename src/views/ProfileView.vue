@@ -6,6 +6,10 @@
 // ============================================================
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+
+// ============================================================
+//                 COMPONENTES DEL PERFIL
+// ============================================================
 import CardShell from '../components/dashboard/CardShell.vue'
 
 const router = useRouter()

@@ -1,194 +1,359 @@
 <!-- src/components/layout/BottomBar.vue -->
 
 <script setup lang="ts">
-// ============================================================
-//                        BARRA INFERIOR
-// ============================================================
+import logo from '../../assets/images/logo.webp'
 
-interface LinkItem {
+interface InternalLink {
   label: string
-  url: string
+  to: string
 }
 
-const socialLinks: LinkItem[] = [
-  { label: 'GitHub', url: 'https://github.com/On-Linces' },
-  { label: 'Instagram', url: 'https://www.instagram.com/on.linces/' },
-  { label: 'Discord', url: 'https://discord.gg/4mkPVybtTk' }
+interface ExternalLink {
+  label: string
+  href: string
+}
+
+const COMMUNITY_LINKS: InternalLink[] = [
+  { label: 'Convocatorias', to: '/convocatorias' },
+  { label: 'Eventos', to: '/eventos' },
+  { label: 'Miembros', to: '/miembros' },
 ]
 
-const legalLinks: LinkItem[] = [
-  { label: 'Privacidad', url: 'https://onlinces.net/privacidad' },
-  { label: 'Términos', url: 'https://onlinces.net/terminos' },
-  { label: 'Código de conducta', url: 'https://onlinces.net/codigo-de-conducta' }
+const RESOURCE_LINKS: Array<InternalLink | ExternalLink> = [
+  { label: 'Script', href: 'https://script.onlinces.net' },
+  { label: 'Galería', to: '/galeria' },
+  { label: 'Asesorías', to: '/asesorias' },
 ]
+
+function isExternal(l: InternalLink | ExternalLink): l is ExternalLink {
+  return 'href' in l
+}
+
+const SOCIAL_LINKS: ExternalLink[] = [
+  { label: 'GitHub', href: 'https://github.com/On-Linces' },
+  { label: 'Discord', href: 'https://discord.gg/onlinces' },
+]
+
+const LEGAL_LINKS: InternalLink[] = [
+  { label: 'Privacidad', to: '/privacidad' },
+  { label: 'Términos', to: '/terminos' },
+  { label: 'Código de conducta', to: '/codigo-de-conducta' },
+]
+
+const currentYear = new Date().getFullYear()
 </script>
 
 <template>
-  <footer class="bottombar">
-    <div class="bottombar__main">
-      <!-- Descripción del club + link a la página pública -->
-      <div class="bottombar__brand">
-        <p class="bottombar__description">
-          <a href="https://onlinces.net/" target="_blank" rel="noopener noreferrer" class="bottombar__brand-link">
-            On Linces
-          </a>:
-          Club estudiantil de programación y desarrollo de software del
-          Tecnológico Nacional de México en Celaya.
-        </p>
-      </div>
+  <footer class="footer">
+    <div class="top">
+      <div class="inner">
+        <!-- Brand col -->
+        <div class="brandCol">
+          <RouterLink to="/" class="brand">
+            <div class="logoBox">
+              <img :src="logo" alt="On Linces" class="logoImg" />
+            </div>
+            <span class="brandName">On Linces</span>
+          </RouterLink>
+          <p class="tagline">
+            Club estudiantil de programación y desarrollo de software
+            del Tecnológico Nacional de México en Celaya.
+          </p>
+          <div class="socials">
+            <a v-for="s in SOCIAL_LINKS" :key="s.label" :href="s.href" target="_blank" rel="noopener noreferrer"
+              :aria-label="s.label" class="socialBtn">
+              <!-- GitHub -->
+              <svg v-if="s.label === 'GitHub'" viewBox="0 0 24 24" width="16" height="16" fill="currentColor"
+                aria-hidden="true">
+                <path
+                  d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
+              </svg>
+              <!-- Discord (MessageCircle de lucide) -->
+              <svg v-else viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" />
+              </svg>
+            </a>
+          </div>
+        </div>
 
-      <div class="bottombar__column">
-        <span class="bottombar__heading">Redes</span>
-        <a
-          v-for="link in socialLinks"
-          :key="link.label"
-          :href="link.url"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="bottombar__link"
-        >
-          {{ link.label }}
-        </a>
-      </div>
-
-      <div class="bottombar__column">
-        <span class="bottombar__heading">Legal</span>
-        <a
-          v-for="link in legalLinks"
-          :key="link.label"
-          :href="link.url"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="bottombar__link"
-        >
-          {{ link.label }}
-        </a>
+        <!-- Link columns -->
+        <div class="linksGrid">
+          <div class="col">
+            <span class="colTitle">Comunidad</span>
+            <RouterLink v-for="l in COMMUNITY_LINKS" :key="l.to" :to="l.to" class="link">
+              {{ l.label }}
+            </RouterLink>
+          </div>
+          <div class="col">
+            <span class="colTitle">Recursos</span>
+            <template v-for="l in RESOURCE_LINKS" :key="l.label">
+              <a v-if="isExternal(l)" :href="l.href" target="_blank" rel="noopener noreferrer" class="link">
+                {{ l.label }}
+              </a>
+              <RouterLink v-else :to="l.to" class="link">
+                {{ l.label }}
+              </RouterLink>
+            </template>
+          </div>
+          <div class="col">
+            <span class="colTitle">Contacto</span>
+            <a href="mailto:contact@onlinces.net" class="link">contact@onlinces.net</a>
+            <span class="linkStatic">TecnNM en Celaya, Gto. MX</span>
+          </div>
+        </div>
       </div>
     </div>
 
-    <div class="bottombar__bottom">
-      <span>© {{ new Date().getFullYear() }} On Linces</span>
+    <!-- Bottom bar -->
+    <div class="bottom">
+      <div class="bottomInner">
+        <span class="copyright">
+          © {{ currentYear }} On Linces. Hecho con
+          <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round" class="heart" aria-hidden="true">
+            <path
+              d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+          </svg>
+          por On Linces
+        </span>
+        <div class="legal">
+          <RouterLink v-for="l in LEGAL_LINKS" :key="l.to" :to="l.to" class="legalLink">
+            {{ l.label }}
+          </RouterLink>
+        </div>
+      </div>
     </div>
   </footer>
 </template>
 
 <style scoped>
-/* ============================================================
-                        CSS STYLES
-============================================================ */
-.bottombar {
-  margin: 2rem auto 1rem auto;
-  width: calc(100% - 2rem);
-  max-width: 1400px;
-  box-sizing: border-box;
-
-  background: rgba(40, 42, 54, 0.65);
-  backdrop-filter: blur(12px) saturate(160%);
-  -webkit-backdrop-filter: blur(12px) saturate(160%);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 20px;
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-
-  font-family: 'Fira Code', Consolas, Monaco, monospace;
-  color: #f8f8f2;
-  padding: 2rem;
-
-  position: relative;
-  overflow: hidden;
+/* ── Footer shell ────────────────────────────────── */
+.footer {
+  background: #0b0e14;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  width: 100%;
+  margin-top: auto;
 }
 
-.bottombar__main {
+/* ── Top section ─────────────────────────────────── */
+.top {
+  padding: 56px 32px 48px;
+}
+
+.inner {
+  max-width: 1280px;
+  margin: 0 auto;
   display: flex;
-  flex-wrap: wrap;
-  gap: 2.5rem;
-  justify-content: space-between;
+  gap: 80px;
 }
 
-.bottombar__brand {
+/* ── Brand column ────────────────────────────────── */
+.brandCol {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
-  flex: 1 1 320px;
-  max-width: 420px;
+  gap: 16px;
+  flex: 0 0 260px;
 }
 
-.bottombar__description {
-  margin: 0;
-  font-size: 0.9rem;
-  line-height: 1.5;
-  color: #9ca3af;
-}
-
-.bottombar__brand-link {
-  color: #bd93f9;
-  font-weight: 600;
-  text-decoration: none;
-}
-
-.bottombar__brand-link:hover {
-  color: #4DF0BA;
-}
-
-.bottombar__column {
+.brand {
   display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
-  min-width: 140px;
-}
-
-.bottombar__heading {
-  font-size: 0.8rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: #ff79c6;
-  margin-bottom: 0.2rem;
-}
-
-.bottombar__link {
-  font-size: 0.9rem;
-  color: #f8f8f2;
+  align-items: center;
+  gap: 10px;
   text-decoration: none;
-  transition: color 0.2s ease;
   width: fit-content;
 }
 
-.bottombar__link:hover {
-  color: #4DF0BA;
+.logoBox {
+  width: 32px;
+  height: 32px;
+  border-radius: 7px;
+  background: #1a2030;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
 }
 
-.bottombar__bottom {
-  margin-top: 1rem;
-  padding-top: 0.25rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  font-size: 0.8rem;
-  color: #6272a4;
-  text-align: center;
+.logoImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-.bottombar__main,
-.bottombar__bottom {
-  position: relative;
-  z-index: 1;
+.brandName {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #f1f5f9;
+  letter-spacing: -0.01em;
 }
 
-.bottombar::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-size: 24px 24px;
-  background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.156) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.131) 1px, transparent 1px);
-  mask-image: linear-gradient(to top, black 5%, transparent 80%);
-  -webkit-mask-image: linear-gradient(to top, black 5%, transparent 80%);
-  opacity: 0;
-  transition: opacity 0.4s ease;
-  pointer-events: none;
-  z-index: 0;
+.tagline {
+  margin: 0;
+  font-size: 0.845rem;
+  color: #94a3b8;
+  line-height: 1.65;
+  max-width: 280px;
 }
 
-.bottombar:hover::before {
-  opacity: 1;
+/* Socials */
+.socials {
+  display: flex;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.socialBtn {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  background: #161b26;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.socialBtn:hover {
+  background: #1e2638;
+  color: #34d399;
+  border-color: rgba(52, 211, 153, 0.3);
+}
+
+/* ── Links grid ──────────────────────────────────── */
+.linksGrid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.colTitle {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #34d399;
+  margin-bottom: 4px;
+}
+
+.link {
+  font-size: 0.875rem;
+  color: #94a3b8;
+  text-decoration: none;
+  transition: color 0.15s;
+  line-height: 1;
+}
+
+.link:hover {
+  color: #f1f5f9;
+}
+
+.linkStatic {
+  font-size: 0.875rem;
+  color: #94a3b8;
+  line-height: 1;
+}
+
+/* ── Bottom bar ──────────────────────────────────── */
+.bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 16px 32px;
+}
+
+.bottomInner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.copyright {
+  font-size: 0.825rem;
+  color: #94a3b8;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.heart {
+  color: #34d399;
+  flex-shrink: 0;
+}
+
+.legal {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.legalLink {
+  font-size: 0.825rem;
+  color: #94a3b8;
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.legalLink:hover {
+  color: #f1f5f9;
+}
+
+/* ── Responsive ──────────────────────────────────── */
+@media (max-width: 960px) {
+  .inner {
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .brandCol {
+    flex: none;
+  }
+
+  .linksGrid {
+    gap: 32px;
+  }
+}
+
+@media (max-width: 640px) {
+  .top {
+    padding: 40px 20px 36px;
+  }
+
+  .bottom {
+    padding: 14px 20px;
+  }
+
+  .linksGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .bottomInner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .legal {
+    gap: 16px;
+  }
+}
+
+@media (max-width: 420px) {
+  .linksGrid {
+    grid-template-columns: 1fr;
+  }
 }
 </style>

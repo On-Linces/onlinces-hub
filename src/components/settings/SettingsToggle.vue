@@ -39,6 +39,9 @@ defineEmits<{
 </template>
 
 <style scoped>
+/* ============================================================
+                        CSS STYLES
+============================================================ */
 .settings-toggle {
   display: flex;
   align-items: center;
