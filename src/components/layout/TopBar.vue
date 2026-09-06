@@ -8,7 +8,7 @@
 // ============================================================
 //                       ASSETS ESTÁTICOS
 // ============================================================
-import logo from './assets/images/logo.webp'
+import logo from '../../assets/images/logo.webp'
 
 // BACKEND: 
 // Estos 3 parametros son exactamente lo que necesita recibir
