@@ -8,6 +8,7 @@ import ProjectCard from './components/dashboard/ProjectCard.vue'
 import hackOnLincesImg from './assets/images/hackonlinces.png'
 import scriptOnLincesImg from './assets/images/scriptonlinces.png'
 import adventLeadboardImg from './assets/images/adventleadboard.png'
+import BottomBar from './components/layout/BottomBar.vue';
 </script>
 
 <template>
@@ -76,6 +77,7 @@ import adventLeadboardImg from './assets/images/adventleadboard.png'
       />
     </LargeDashboardCard>
   </main>
+  <BottomBar />
 </template>
 
 <style scoped>
@@ -84,6 +86,7 @@ import adventLeadboardImg from './assets/images/adventleadboard.png'
   flex-direction: column;
   padding: 2rem;
   background: transparent;
+  flex: 1;
 }
 
 .dashboard-cards {
