@@ -3,7 +3,11 @@ import TopBar from './components/layout/TopBar.vue'
 import WelcomeHeader from './components/dashboard/WelcomeHeader.vue';
 import DashboardCard from './components/dashboard/DashboardCard.vue'
 import CardLink from './components/dashboard/CardLink.vue'
-import LargeDashboardCard from './components/dashboard/LargeDashboardCard.vue';
+import LargeDashboardCard from './components/dashboard/LargeDashboardCard.vue'
+import ProjectCard from './components/dashboard/ProjectCard.vue'
+import hackOnLincesImg from './assets/images/hackonlinces.png'
+import scriptOnLincesImg from './assets/images/scriptonlinces.png'
+import adventLeadboardImg from './assets/images/adventleadboard.png'
 </script>
 
 <template>
@@ -51,13 +55,23 @@ import LargeDashboardCard from './components/dashboard/LargeDashboardCard.vue';
       </template>
 
       <ProjectCard
-        title="Veily"
-        description="App de aprendizaje de programación con dificultad adaptativa."
+        :image="hackOnLincesImg"
+        title="Hack OnLinces"
+        description="Forma equipo, desarrolla soluciones increíbles y demuestra tu talento."
         @more-info="() => {}"
       />
+
       <ProjectCard
-        title="OnLinces Hub"
-        description="Plataforma central de la comunidad."
+        :image="scriptOnLincesImg"
+        title="Script OnLinces"
+        description="Forma equipo, desarrolla soluciones increíbles y demuestra tu talento."
+        @more-info="() => {}"
+      />
+
+      <ProjectCard
+        :image="adventLeadboardImg"
+        title="Advent of Code Leadboard"
+        description="Forma equipo, desarrolla soluciones increíbles y demuestra tu talento."
         @more-info="() => {}"
       />
     </LargeDashboardCard>

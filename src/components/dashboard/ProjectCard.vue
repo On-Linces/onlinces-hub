@@ -3,7 +3,7 @@
 interface Props {
   image?: string
   title: string
-  description?: string
+  description?: string 
 }
 
 withDefaults(defineProps<Props>(), {
@@ -18,45 +18,70 @@ const emit = defineEmits<{
 
 <template>
   <div class="project-card">
-    <div class="project-card__image">
-      <img v-if="image" :src="image" :alt="title" />
-      <div v-else class="project-card__placeholder" />
+    <img v-if="image" :src="image" :alt="title" class="project-card__img" />
+    <div v-else class="project-card__placeholder"></div>
+
+    <div class="project-card__overlay">
+      <h4 class="project-card__title">{{ title }}</h4>
+      <button class="project-card__btn" @click.stop="emit('moreInfo')">
+        Ver más...
+      </button>
     </div>
-
-    <h4 class="project-card__title">{{ title }}</h4>
-    <p v-if="description" class="project-card__desc">{{ description }}</p>
-
-    <button class="project-card__btn" @click="emit('moreInfo')">
-      Más información
-    </button>
   </div>
 </template>
 
 <style scoped>
 .project-card {
   scroll-snap-align: start;
-  flex: 0 0 220px;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  flex: 0 0 500px;
+  aspect-ratio: 16 / 9;
+  position: relative;
   border-radius: 16px;
-  padding: 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.project-card__image {
-  width: 100%;
-  aspect-ratio: 4 / 3;
-  border-radius: 12px;
   overflow: hidden;
-  background: rgba(255, 121, 198, 0.08);
+  cursor: pointer;
+  border: 3px solid rgba(255, 255, 255, 0.08);
 }
 
-.project-card__image img {
+
+.project-card__img, 
+.project-card__placeholder {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.project-card__placeholder {
+  background: rgba(255, 121, 198, 0.08);
+}
+
+.project-card:hover .project-card__img {
+  transform: scale(1.08);
+}
+
+.project-card__overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 1rem 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+
+  background: rgba(11, 12, 16, 0.65);
+  backdrop-filter: blur(12px) saturate(160%);
+  -webkit-backdrop-filter: blur(12px) saturate(160%);
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+
+  transform: translateY(100%);
+  transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.project-card:hover .project-card__overlay {
+  transform: translateY(0);
 }
 
 .project-card__title {
@@ -64,28 +89,27 @@ const emit = defineEmits<{
   font-family: 'Fira Code', monospace;
   font-size: 1rem;
   color: #f8f8f2;
-}
-
-.project-card__desc {
-  margin: 0;
-  font-size: 0.85rem;
-  color: #9ca3af;
-  flex-grow: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .project-card__btn {
-  margin-top: 0.25rem;
-  background: rgba(255, 121, 198, 0.1);
-  color: #ff79c6;
-  border: none;
-  border-radius: 10px;
-  padding: 0.5rem;
+  background: rgba(255, 121, 198, 0.15);
+  color: #ffcbe8;
+  border: 1px solid rgba(255, 121, 198, 0.3);
+  border-radius: 8px;
+  padding: 0.4rem 0.8rem;
   font-family: 'Fira Code', monospace;
+  font-size: 0.85rem;
   cursor: pointer;
-  transition: background 0.2s ease;
+  transition: all 0.2s ease;
+  white-space: nowrap;
 }
 
 .project-card__btn:hover {
-  background: rgba(255, 121, 198, 0.2);
+  background: rgba(255, 121, 198, 0.4);
+  color: #fff;
+  border-color: #ff79c6;
 }
 </style>
