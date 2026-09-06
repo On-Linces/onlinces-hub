@@ -145,15 +145,17 @@ const currentYear = new Date().getFullYear()
 </template>
 
 <style scoped>
-/* ── Footer shell ────────────────────────────────── */
+/* ============================================================
+                        CSS STYLES
+============================================================ */
 .footer {
-  background: #0b0e14;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  background: var(--bg-card);
+  border-top: 1px solid var(--border-color);
   width: 100%;
   margin-top: auto;
+  color: var(--text-primary);
 }
 
-/* ── Top section ─────────────────────────────────── */
 .top {
   padding: 56px 32px 48px;
 }
@@ -165,7 +167,6 @@ const currentYear = new Date().getFullYear()
   gap: 80px;
 }
 
-/* ── Brand column ────────────────────────────────── */
 .brandCol {
   display: flex;
   flex-direction: column;
@@ -184,9 +185,9 @@ const currentYear = new Date().getFullYear()
 .logoBox {
   width: 32px;
   height: 32px;
-  border-radius: 7px;
-  background: #1a2030;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-xs);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -203,19 +204,17 @@ const currentYear = new Date().getFullYear()
 .brandName {
   font-size: 0.95rem;
   font-weight: 600;
-  color: #f1f5f9;
-  letter-spacing: -0.01em;
+  color: var(--text-primary);
 }
 
 .tagline {
   margin: 0;
   font-size: 0.845rem;
-  color: #94a3b8;
+  color: var(--text-muted);
   line-height: 1.65;
   max-width: 280px;
 }
 
-/* Socials */
 .socials {
   display: flex;
   gap: 8px;
@@ -225,24 +224,21 @@ const currentYear = new Date().getFullYear()
 .socialBtn {
   width: 34px;
   height: 34px;
-  border-radius: 8px;
-  background: #161b26;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  color: #64748b;
+  border-radius: var(--radius-xs);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
   display: flex;
   align-items: center;
   justify-content: center;
   text-decoration: none;
-  transition: background 0.15s, color 0.15s, border-color 0.15s;
+  transition: background var(--transition-speed), color var(--transition-speed);
 }
 
 .socialBtn:hover {
-  background: #1e2638;
-  color: #34d399;
-  border-color: rgba(52, 211, 153, 0.3);
+  color: var(--accent-teal);
 }
 
-/* ── Links grid ──────────────────────────────────── */
 .linksGrid {
   flex: 1;
   display: grid;
@@ -261,31 +257,28 @@ const currentYear = new Date().getFullYear()
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: #34d399;
+  color: var(--accent-teal);
   margin-bottom: 4px;
 }
 
 .link {
   font-size: 0.875rem;
-  color: #94a3b8;
+  color: var(--text-muted);
   text-decoration: none;
-  transition: color 0.15s;
-  line-height: 1;
+  transition: color var(--transition-speed);
 }
 
 .link:hover {
-  color: #f1f5f9;
+  color: var(--text-primary);
 }
 
 .linkStatic {
   font-size: 0.875rem;
-  color: #94a3b8;
-  line-height: 1;
+  color: var(--text-muted);
 }
 
-/* ── Bottom bar ──────────────────────────────────── */
 .bottom {
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-top: 1px solid var(--border-color);
   padding: 16px 32px;
 }
 
@@ -300,15 +293,10 @@ const currentYear = new Date().getFullYear()
 
 .copyright {
   font-size: 0.825rem;
-  color: #94a3b8;
+  color: var(--text-muted);
   display: flex;
   align-items: center;
   gap: 4px;
-}
-
-.heart {
-  color: #34d399;
-  flex-shrink: 0;
 }
 
 .legal {
@@ -319,58 +307,12 @@ const currentYear = new Date().getFullYear()
 
 .legalLink {
   font-size: 0.825rem;
-  color: #94a3b8;
+  color: var(--text-muted);
   text-decoration: none;
-  transition: color 0.15s;
+  transition: color var(--transition-speed);
 }
 
 .legalLink:hover {
-  color: #f1f5f9;
-}
-
-/* ── Responsive ──────────────────────────────────── */
-@media (max-width: 960px) {
-  .inner {
-    flex-direction: column;
-    gap: 40px;
-  }
-
-  .brandCol {
-    flex: none;
-  }
-
-  .linksGrid {
-    gap: 32px;
-  }
-}
-
-@media (max-width: 640px) {
-  .top {
-    padding: 40px 20px 36px;
-  }
-
-  .bottom {
-    padding: 14px 20px;
-  }
-
-  .linksGrid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .bottomInner {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-  }
-
-  .legal {
-    gap: 16px;
-  }
-}
-
-@media (max-width: 420px) {
-  .linksGrid {
-    grid-template-columns: 1fr;
-  }
+  color: var(--text-primary);
 }
 </style>

@@ -51,8 +51,8 @@ function handleLogout() {
           label="Tema"
           v-model="settings.colorTheme"
           :options="[
-            { value: 'dark', text: 'Negro' },
-            { value: 'light', text: 'Blanco' }
+            { value: 'light', text: 'Blanco' },
+            { value: 'dark', text: 'Negro' }
           ]"
         />
 

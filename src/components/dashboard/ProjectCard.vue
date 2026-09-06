@@ -46,10 +46,17 @@ const emit = defineEmits<{
   flex: 0 0 500px;
   aspect-ratio: 16 / 9;
   position: relative;
-  border-radius: 16px;
+  border-radius: var(--radius-md);
   overflow: hidden;
   cursor: pointer;
-  border: 3px solid rgba(255, 255, 255, 0.08);
+  border: 3px solid var(--border-color);
+  transition: border-color var(--transition-speed) ease,
+              box-shadow var(--transition-speed) ease;
+}
+
+.project-card:hover {
+  border-color: var(--accent-pink);
+  box-shadow: var(--shadow-glow), 0 0 20px var(--accent-pink-glow);
 }
 
 .project-card__img,
@@ -61,7 +68,7 @@ const emit = defineEmits<{
 }
 
 .project-card__placeholder {
-  background: rgba(255, 121, 198, 0.08);
+  background: var(--accent-pink-dim);
 }
 
 .project-card:hover .project-card__img {
@@ -80,10 +87,10 @@ const emit = defineEmits<{
   justify-content: space-between;
   gap: 1rem;
 
-  background: rgba(11, 12, 16, 0.65);
-  backdrop-filter: blur(12px) saturate(160%);
-  -webkit-backdrop-filter: blur(12px) saturate(160%);
-  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  background: var(--bg-card);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border-top: 1px solid var(--border-color);
 
   transform: translateY(100%);
   transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -95,30 +102,30 @@ const emit = defineEmits<{
 
 .project-card__title {
   margin: 0;
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-family);
   font-size: 1rem;
-  color: #f8f8f2;
+  color: var(--text-primary);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .project-card__btn {
-  background: rgba(255, 121, 198, 0.15);
-  color: #ffcbe8;
-  border: 1px solid rgba(255, 121, 198, 0.3);
-  border-radius: 8px;
+  background: var(--accent-pink-dim);
+  color: var(--accent-pink);
+  border: 1px solid var(--accent-pink);
+  border-radius: var(--radius-xs);
   padding: 0.4rem 0.8rem;
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-family);
   font-size: 0.85rem;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all var(--transition-speed) ease;
   white-space: nowrap;
 }
 
 .project-card__btn:hover {
-  background: rgba(255, 121, 198, 0.4);
-  color: #fff;
-  border-color: #ff79c6;
+  background: var(--accent-pink);
+  color: var(--text-primary);
+  border-color: var(--accent-pink);
 }
 </style>

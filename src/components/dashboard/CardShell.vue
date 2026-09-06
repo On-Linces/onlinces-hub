@@ -40,59 +40,67 @@ withDefaults(defineProps<Props>(), {
 /* ============================================================
                         CSS STYLES
 ============================================================ */
+/* ============================================================
+   BASE DE LA TARJETA: usa las variables globales
+============================================================ */
 .card-shell {
-  --accent-color: #4df0ba;
-  --accent-bg: rgba(77, 240, 186, 0.1);
-  --accent-glow: rgba(77, 240, 186, 0.4);
-  --grid-line: rgba(77, 240, 186, 0.15);
-}
+  --accent-color: var(--accent-teal);
+  --accent-bg: var(--accent-teal-dim);
+  --accent-glow: var(--accent-teal-glow);
+  --grid-line: var(--accent-teal-grid);
 
-.card-shell--purple {
-  --accent-color: #bd93f9;
-  --accent-bg: rgba(189, 147, 249, 0.1);
-  --accent-glow: rgba(189, 147, 249, 0.4);
-  --grid-line: rgba(189, 147, 249, 0.15);
-}
-
-.card-shell--pink {
-  --accent-color: #ff79c6;
-  --accent-bg: rgba(255, 121, 198, 0.1);
-  --accent-glow: rgba(255, 121, 198, 0.4);
-  --grid-line: rgba(255, 121, 198, 0.15);
-}
-
-.card-shell {
   flex: 1 1 380px;
   min-width: 320px;
   max-width: 600px;
   height: fit-content;
 
-  background: rgba(11, 12, 16, 0.65);
-  backdrop-filter: blur(12px) saturate(160%);
-  -webkit-backdrop-filter: blur(12px) saturate(160%);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--bg-card);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
 
-  border-radius: 24px;
   padding: 1.5rem;
   margin-bottom: 2rem;
   display: flex;
   flex-direction: column;
   position: relative;
   overflow: hidden;
-  transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.3s ease;
+
+  transition: border-color var(--transition-speed) ease,
+              box-shadow var(--transition-speed) ease,
+              transform var(--transition-speed) ease;
 }
 
-.card-shell--full {
-  flex-basis: 100%;
-  max-width: 100%;
+/* ============================================================
+   VARIANTES DE ACENTO
+============================================================ */
+.card-shell--purple {
+  --accent-color: var(--accent-purple);
+  --accent-bg: var(--accent-purple-dim);
+  --accent-glow: var(--accent-purple-glow);
+  --grid-line: var(--accent-purple-grid);
 }
 
+.card-shell--pink {
+  --accent-color: var(--accent-pink);
+  --accent-bg: var(--accent-pink-dim);
+  --accent-glow: var(--accent-pink-glow);
+  --grid-line: var(--accent-pink-grid);
+}
+
+/* ============================================================
+   ESTADO HOVER: borde, sombra y elevación
+============================================================ */
 .card-shell:hover {
   border-color: var(--accent-color);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37), 0 0 24px var(--accent-glow);
-  transform: translateY(-2px); /* leve "levantamiento" al pasar el mouse */
+  box-shadow: var(--shadow-glow), 0 0 24px var(--accent-glow);
+  transform: var(--hover-transform);
 }
 
+/* ============================================================
+   DECORACIONES DE FONDO (cuadrícula y resplandor)
+============================================================ */
 .card-shell::before {
   content: '';
   position: absolute;
@@ -104,7 +112,7 @@ withDefaults(defineProps<Props>(), {
   mask-image: linear-gradient(to top, black 5%, transparent 80%);
   -webkit-mask-image: linear-gradient(to top, black 5%, transparent 80%);
   opacity: 0;
-  transition: opacity 0.4s ease;
+  transition: opacity var(--transition-speed) ease;
   pointer-events: none;
   z-index: 0;
 }
@@ -119,7 +127,7 @@ withDefaults(defineProps<Props>(), {
   height: 120px;
   background: radial-gradient(ellipse at center, var(--accent-bg), transparent 70%);
   opacity: 0;
-  transition: opacity 0.4s ease;
+  transition: opacity var(--transition-speed) ease;
   pointer-events: none;
   z-index: 0;
 }
@@ -129,6 +137,9 @@ withDefaults(defineProps<Props>(), {
   opacity: 1;
 }
 
+/* ============================================================
+   CABECERA Y CUERPO (z-index para estar por encima de decoraciones)
+============================================================ */
 .card-shell__header,
 .card-shell__body {
   position: relative;
@@ -146,8 +157,8 @@ withDefaults(defineProps<Props>(), {
   width: 60px;
   height: 60px;
   background: var(--accent-bg);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 16px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -165,11 +176,19 @@ withDefaults(defineProps<Props>(), {
 .card-shell__title-pill {
   background: var(--accent-bg);
   color: var(--accent-color);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-color);
   padding: 0.5rem 1.2rem;
   border-radius: 20px;
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-family);
   font-size: 1.1rem;
   font-weight: 700;
+}
+
+/* ============================================================
+   MODIFICADOR: ancho completo
+============================================================ */
+.card-shell--full {
+  flex-basis: 100%;
+  max-width: 100%;
 }
 </style>

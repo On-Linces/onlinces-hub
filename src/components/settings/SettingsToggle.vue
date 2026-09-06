@@ -56,7 +56,7 @@ defineEmits<{
 }
 
 .settings-toggle__label {
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-family);
   color: var(--text-primary);
   font-size: 1rem;
 }
@@ -76,10 +76,11 @@ defineEmits<{
   color: var(--text-muted);
   padding: 0.4rem 1rem;
   border-radius: calc(var(--radius-sm) - 3px);
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-family);
   font-size: 0.85rem;
   cursor: pointer;
-  transition: background var(--transition-speed) ease, color var(--transition-speed) ease;
+  transition: background var(--transition-speed) ease,
+              color var(--transition-speed) ease;
 }
 
 .settings-toggle__option--active {

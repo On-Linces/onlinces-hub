@@ -17,82 +17,139 @@ body {
 }
 
 body {
-  font-family: 'Fira Code', ui-monospace, Consolas, monospace;
-  background-color: #282a36;
-  background-image: url('./assets/images/background_dark.png');
+  font-family: var(--font-family);
+  background-color: var(--bg-body);
+  background-image: var(--bg-image);
   background-repeat: repeat;
   background-position: center top;
   background-size: 1000px auto;
   background-attachment: fixed;
-  color: #f8f8f2;
+  color: var(--text-primary);
+  transition: background-color var(--transition-speed) ease,
+              color var(--transition-speed) ease,
+              background-image var(--transition-speed) ease;
 }
 
-/* ==========================================================
-   ESTADO BASE (Oscuro, Redondeado, Efectos Encendidos)
-========================================================== */
+/* ============================================================
+   TEMA OSCURO (por defecto, usado cuando no hay clase .theme-light)
+============================================================ */
 :root {
-  /* Colores - Tema Oscuro */
+  /* --- Colores de fondo --- */
   --bg-body: #11141e;
   --bg-surface: rgba(17, 20, 30, 0.92);
   --bg-card: rgba(11, 12, 16, 0.65);
+  --bg-hover: rgba(255, 255, 255, 0.06);
+
+  /* --- Colores de texto --- */
   --text-primary: #f8f8f2;
-  --text-muted: #9ca3af;
+  --text-muted: #d0d5dd;
+  --text-inverse: #1e293b; /* para usar sobre fondos claros */
+
+  /* --- Colores de acento --- */
+  --accent-teal: #4DF0BA;
+  --accent-teal-dim: rgba(77, 240, 186, 0.1);
+  --accent-teal-glow: rgba(77, 240, 186, 0.4);
+  --accent-teal-grid: rgba(77, 240, 186, 0.2);
+
+  --accent-purple: #bd93f9;
+  --accent-purple-dim: rgba(189, 147, 249, 0.1);
+  --accent-purple-glow: rgba(189, 147, 249, 0.4);
+  --accent-purple-grid: rgba(189, 147, 249, 0.2);
+
+  --accent-pink: #ff79c6;
+  --accent-pink-dim: rgba(255, 121, 198, 0.1);
+  --accent-pink-glow: rgba(255, 121, 198, 0.4);
+  --accent-pink-grid: rgba(255, 121, 198, 0.2);
+
+  /* --- Bordes y sombras --- */
   --border-color: rgba(255, 255, 255, 0.1);
-  --glass-blur: blur(12px) saturate(160%);
-  
-  /* Geometría - Estilo Redondeado */
+  --shadow-glow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+
+  /* --- Geometría --- */
   --radius-lg: 24px;
   --radius-md: 20px;
   --radius-sm: 12px;
   --radius-xs: 8px;
-  
-  /* Animaciones y Efectos - Encendidos */
+
+  /* --- Efectos --- */
+  --glass-blur: blur(12px) saturate(160%);
   --hover-transform: translateY(-2px);
   --hover-scale: scale(1.05);
-  --shadow-glow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
   --transition-speed: 0.3s;
+
+  /* --- Imagen de fondo (oscura) --- */
+  --bg-image: url('./assets/images/background_dark.png');
+
+  /* --- Tipografía --- */
+  --font-family: 'Fira Code', ui-monospace, Consolas, monospace;
 }
 
-/* ==========================================================
-   MODIFICADOR: Tema Blanco (.theme-light)
-========================================================== */
-.theme-light {
-  --bg-body: #f8fafc;
-  --bg-surface: rgba(255, 255, 255, 0.9);
-  --bg-card: rgba(255, 255, 255, 0.7);
-  --text-primary: #1e293b;
-  --text-muted: #64748b;
-  --border-color: rgba(0, 0, 0, 0.1);
-  --shadow-glow: 0 4px 20px 0 rgba(0, 0, 0, 0.05);
+/* ============================================================
+   TEMA CLARO
+============================================================ */
+html.theme-light {
+  /* --- Colores de fondo --- */
+  --bg-body: #fcf6ca;
+  --bg-surface: rgb(255, 255, 255);
+  --bg-card: #ffffffc0;
+  --bg-hover: rgba(15, 23, 42, 0.04);
+
+  /* --- Colores de texto --- */
+  --text-primary: #0f172a;
+  --text-muted: #262729;
+  --text-inverse: #404040;
+
+  /* --- Colores de acento --- */
+  --accent-teal: #08635c;
+  --accent-teal-dim: rgba(13, 148, 136, 0.08);
+  --accent-teal-glow: rgba(13, 148, 136, 0.25);
+  --accent-teal-grid: rgba(13, 148, 136, 0.5);
+
+  --accent-purple: #2b0966;
+  --accent-purple-dim: rgba(124, 58, 237, 0.08);
+  --accent-purple-glow: rgba(124, 58, 237, 0.25);
+  --accent-purple-grid: rgba(124, 58, 237, 0.5);
+
+  --accent-pink: #57072b;
+  --accent-pink-dim: rgba(219, 39, 119, 0.08);
+  --accent-pink-glow: rgba(219, 39, 119, 0.25);
+  --accent-pink-grid: rgba(219, 39, 119, 0.5);
+
+  /* --- Bordes y sombras --- */
+  --border-color: rgba(15, 23, 42, 0.08);
+  --shadow-glow: 0 10px 30px 0 rgba(15, 23, 42, 0.06);
+
+  /* --- Imagen de fondo clara --- */
+  --bg-image: url('./assets/images/background_light.png');
 }
 
-/* ==========================================================
-   MODIFICADOR: Estilo Plano (.style-flat)
-========================================================== */
-.style-flat {
+/* ============================================================
+   ESTILO PLANO (quita bordes redondeados y desactiva el blur)
+============================================================ */
+html.style-flat {
   --radius-lg: 0px;
   --radius-md: 0px;
   --radius-sm: 0px;
   --radius-xs: 0px;
-  --glass-blur: none; /* Apaga el Glassmorphism */
-  
-  /* Vuelve los fondos sólidos si no hay glassmorphism */
-  --bg-surface: #1e2638; 
+  --glass-blur: none;
+
+  /* Fondos sólidos (sin transparencia) */
+  --bg-surface: #0f0f10;
   --bg-card: #0b0e14;
 }
 
-/* Compatibilidad de tema claro con estilo plano */
-.theme-light.style-flat {
+/* Combinación: claro + plano */
+html.theme-light.style-flat {
   --bg-surface: #ffffff;
-  --bg-card: #f1f5f9;
+  --bg-card: #ffffff;
 }
 
-/* ==========================================================
-   MODIFICADOR: Efectos Apagados (.effects-off)
-========================================================== */
-.effects-off {
+/* ============================================================
+   EFECTOS APAGADOS (elimina transiciones, sombras y transformaciones)
+============================================================ */
+html.effects-off {
   --hover-transform: none;
   --hover-scale: none;
   --shadow-glow: none;
-  --transition-speed: 0s; /* Apaga las transiciones */
+  --transition-speed: 0s;
 }

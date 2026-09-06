@@ -62,31 +62,32 @@ defineEmits<{
                         CSS STYLES
 ============================================================ */
 .card-link {
-  --hover-color: #4DF0BA;
-  
+  /* Por defecto usa el acento teal (puede sobrescribirse con la clase --purple) */
+  --hover-color: var(--accent-teal);
+
   position: relative;
   background: transparent;
   border: none;
-  color: #f8f8f2;
+  color: var(--text-primary);
   text-align: center;
   padding: 0.6rem 1.5rem;
-  border-radius: 12px;
+  border-radius: var(--radius-sm);
   cursor: pointer;
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-family);
   font-size: 1.4rem;
   font-weight: 500;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  transition: background var(--transition-speed) ease,
+              color var(--transition-speed) ease;
   width: 100%;
   overflow: hidden;
 }
 
-/* Sobrescribe la variable de color cuando accent="purple" */
 .card-link--purple {
-  --hover-color: #bd93f9;
+  --hover-color: var(--accent-purple);
 }
 
 .card-link:hover {
-  background: rgba(255, 255, 255, 0.06);
+  background: var(--bg-hover);
   color: var(--hover-color);
 }
 
@@ -100,7 +101,7 @@ defineEmits<{
   inset: 0;
   pointer-events: none;
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: opacity var(--transition-speed) ease;
   z-index: 1;
 }
 
@@ -121,16 +122,40 @@ defineEmits<{
   transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-/* Posición y animación individual de cada uno de los 4 doodles*/
-.card-link .doodle-1 { top: -5px; left: 5px; transform: rotate(-45deg) scale(0.6); }
-.card-link:hover .doodle-1 { transform: rotate(-15deg) scale(0.9) translate(5px, 8px); }
+/* Posiciones y animaciones individuales de los doodles */
+.card-link .doodle-1 {
+  top: -5px;
+  left: 5px;
+  transform: rotate(-45deg) scale(0.6);
+}
+.card-link:hover .doodle-1 {
+  transform: rotate(-15deg) scale(0.9) translate(5px, 8px);
+}
 
-.card-link .doodle-2 { top: -10px; right: 10px; transform: rotate(30deg) scale(0.5); }
-.card-link:hover .doodle-2 { transform: rotate(55deg) scale(0.8) translate(-4px, 12px); }
+.card-link .doodle-2 {
+  top: -10px;
+  right: 10px;
+  transform: rotate(30deg) scale(0.5);
+}
+.card-link:hover .doodle-2 {
+  transform: rotate(55deg) scale(0.8) translate(-4px, 12px);
+}
 
-.card-link .doodle-3 { bottom: -5px; left: 15px; transform: rotate(-20deg) scale(0.7); }
-.card-link:hover .doodle-3 { transform: rotate(10deg) scale(0.85) translate(4px, -10px); }
+.card-link .doodle-3 {
+  bottom: -5px;
+  left: 15px;
+  transform: rotate(-20deg) scale(0.7);
+}
+.card-link:hover .doodle-3 {
+  transform: rotate(10deg) scale(0.85) translate(4px, -10px);
+}
 
-.card-link .doodle-4 { bottom: -12px; right: 8px; transform: rotate(60deg) scale(0.6); }
-.card-link:hover .doodle-4 { transform: rotate(25deg) scale(1) translate(-10px, -6px); }
+.card-link .doodle-4 {
+  bottom: -12px;
+  right: 8px;
+  transform: rotate(60deg) scale(0.6);
+}
+.card-link:hover .doodle-4 {
+  transform: rotate(25deg) scale(1) translate(-10px, -6px);
+}
 </style>

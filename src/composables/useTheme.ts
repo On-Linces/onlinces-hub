@@ -16,14 +16,13 @@ interface ThemeSettings {
 
 const STORAGE_KEY = 'onlinces-theme-settings'
 
+// src/composables/useTheme.ts
 function loadSettings(): ThemeSettings {
   try {
     const raw = localStorage.getItem(STORAGE_KEY)
     if (raw) return JSON.parse(raw)
-  } catch {
-    // localStorage no disponible o corrupto: usar defaults
-  }
-  return { colorTheme: 'dark', elementStyle: 'rounded', effectsEnabled: true }
+  } catch {}
+  return { colorTheme: 'light', elementStyle: 'rounded', effectsEnabled: true }
 }
 
 // Estado a nivel de módulo (no dentro de la función useTheme):
