@@ -1,0 +1,35 @@
+{
+    "$schema": "https://opencode.dev/schema.json",
+    "version": "1.0",
+    "default_model": "muse-spark-1.3-contributor",
+    "agents": {
+        "scout": {
+            "model": "deepseek-v4-flash",
+            "description": "Scans assets, CSS styles, and client-side templates",
+            "temperature": 0.1,
+            "max_tokens": 4096
+        },
+        "explorer": {
+            "model": "glm-5.3-flash",
+            "description": "Analyzes OAuth redirection flows and DOM component state",
+            "temperature": 0.2,
+            "max_tokens": 8192
+        },
+        "coder": {
+            "model": "muse-spark-1.3-contributor",
+            "description": "Generates UI views, Web Crypto PKCE handlers, and authorization callbacks",
+            "temperature": 0.2,
+            "max_tokens": 16384
+        },
+        "ui_reviewer": {
+            "model": "minimax-m3",
+            "description": "Audits layout accessibility, standards compliance, and UI consistency",
+            "temperature": 0.2,
+            "max_tokens": 8192
+        }
+    },
+    "rules": {
+        "no_loud_colors": true,
+        "require_accessible_ui": true
+    }
+}
