@@ -3,6 +3,7 @@ import TopBar from './components/layout/TopBar.vue'
 import WelcomeHeader from './components/dashboard/WelcomeHeader.vue';
 import DashboardCard from './components/dashboard/DashboardCard.vue'
 import CardLink from './components/dashboard/CardLink.vue'
+import LargeDashboardCard from './components/dashboard/LargeDashboardCard.vue';
 </script>
 
 <template>
@@ -38,6 +39,28 @@ import CardLink from './components/dashboard/CardLink.vue'
         <CardLink type="galeria" accent="teal">Galeria</CardLink>
       </DashboardCard>
     </div>
+
+    <LargeDashboardCard title="Proyectos">
+      <template #icon>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="3" width="7" height="7" rx="1" />
+          <rect x="14" y="3" width="7" height="7" rx="1" />
+          <rect x="3" y="14" width="7" height="7" rx="1" />
+          <rect x="14" y="14" width="7" height="7" rx="1" />
+        </svg>
+      </template>
+
+      <ProjectCard
+        title="Veily"
+        description="App de aprendizaje de programación con dificultad adaptativa."
+        @more-info="() => {}"
+      />
+      <ProjectCard
+        title="OnLinces Hub"
+        description="Plataforma central de la comunidad."
+        @more-info="() => {}"
+      />
+    </LargeDashboardCard>
   </main>
 </template>
 
