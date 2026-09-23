@@ -8,6 +8,7 @@ import DashboardView from '../views/DashboardView.vue'
 import ProfileView from '../views/ProfileView.vue'
 import ConfigView from '../views/ConfigView.vue'
 import MembersView from '../views/MembersView.vue'
+import GalleryView from '../views/GalleryView.vue'
 
 const router = createRouter({
   // createWebHistory = URLs normales (/perfil)
@@ -31,9 +32,14 @@ const router = createRouter({
     {
       path: '/miembros',
       name: 'members',
-      component: MembersView
+      component: MembersView,
+    },
+    {
+      path: '/galeria',
+      name: 'gallery',
+      component: GalleryView
     }
-    // TO-DO: rutas, /galeria, /proyectos,
+    // TO-DO: rutas, /proyectos,
   ]
 })
 

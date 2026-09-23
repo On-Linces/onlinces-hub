@@ -83,7 +83,9 @@ const router = useRouter()
         <CardLink type="miembros" accent="teal" @click="router.push('/miembros')">
           Miembros
         </CardLink>
-        <CardLink type="galeria" accent="teal">Galeria</CardLink>
+        <CardLink type="galeria" accent="teal" @click="router.push('/galeria')">
+          Galeria
+        </CardLink>
       </DashboardCard>
     </div>
 
