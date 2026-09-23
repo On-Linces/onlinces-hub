@@ -4,6 +4,7 @@
 // ============================================================
 //                        LAYOUT GLOBAL
 // ============================================================
+import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 
 // ============================================================
@@ -14,30 +15,25 @@ import DashboardCard from '../components/dashboard/DashboardCard.vue'
 import CardLink from '../components/dashboard/CardLink.vue'
 import LargeDashboardCard from '../components/dashboard/LargeDashboardCard.vue'
 import ProjectCard from '../components/dashboard/ProjectCard.vue'
+import ProjectModal from '../components/dashboard/ProjectModal.vue'
 
 // ============================================================
-//                       ASSETS ESTÁTICOS
+//                       DATOS DE PROYECTOS
 // ============================================================
-import hackOnLincesImg from '../assets/images/hackonlinces.png'
-import scriptOnLincesImg from '../assets/images/scriptonlinces.png'
-import adventLeadboardImg from '../assets/images/adventleadboard.png'
- 
+import { PROJECTS, type Project } from '../data/projects'
+
 const router = useRouter()
 
-// BACKEND:
-// El nombre "lildud", el 67 de las notis y la foto por defecto
-// están escritos a mano en este archivo. Cuando exista login SSO,
-// a lo que vi segun, estos valores deben salir de un composable/store 
-// de sesión, por ejemplo:
-//
-//   import { useAuth } from './composables/useAuth'
-//   const { user } = useAuth()
-//   // user.name, user.avatarUrl, user.unreadNotifications
-//
-// Ningún impotente hijo (TopBar, WelcomeHeader) necesita cambiar:
-// ya reciben estos datos como parametritos, no los buscan ellos mismos.
-// Solo hay que cambiar quien se los hecha aquí.
+// Proyecto activo en el modal (null = cerrado)
+const activeProject = ref<Project | null>(null)
 
+function openProject(project: Project) {
+  activeProject.value = project
+}
+
+function closeProject() {
+  activeProject.value = null
+}
 </script>
 
 <template>
@@ -69,7 +65,6 @@ const router = useRouter()
         </CardLink>
       </DashboardCard>
 
-      <!-- TO-DO: navegacion individual de cada apartado-->
       <DashboardCard title="Comunidad" accent="teal">
         <template #icon>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -84,7 +79,7 @@ const router = useRouter()
           Miembros
         </CardLink>
         <CardLink type="galeria" accent="teal" @click="router.push('/galeria')">
-          Galeria
+          Galería
         </CardLink>
       </DashboardCard>
     </div>
@@ -103,33 +98,25 @@ const router = useRouter()
       </template>
 
       <ProjectCard
-        :image="hackOnLincesImg"
-        title="Hack OnLinces"
-        description="Forma equipo, desarrolla soluciones increíbles y demuestra tu talento."
-        @more-info="() => {}"
-      />
-      <!-- TO-DO: more-info debe explicar en brevedad el proyecto y anidar un link de redireccion -->
-
-      <ProjectCard
-        :image="scriptOnLincesImg"
-        title="Script OnLinces"
-        description="Forma equipo, desarrolla soluciones increíbles y demuestra tu talento."
-        @more-info="() => {}"
-      />
-
-      <ProjectCard
-        :image="adventLeadboardImg"
-        title="Advent of Code Leadboard"
-        description="Forma equipo, desarrolla soluciones increíbles y demuestra tu talento."
-        @more-info="() => {}"
+        v-for="project in PROJECTS"
+        :key="project.id"
+        :image="project.image"
+        :title="project.title"
+        :description="project.description"
+        @more-info="openProject(project)"
       />
     </LargeDashboardCard>
   </main>
 
+  <!-- Modal de proyecto -->
+  <ProjectModal
+    :project="activeProject"
+    @close="closeProject"
+  />
+
   <!-- Enlaces institucionales -->
   <BottomBar />
 </template>
-
 
 <style scoped>
 /* ============================================================
