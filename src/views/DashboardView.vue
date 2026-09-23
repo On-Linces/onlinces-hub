@@ -80,7 +80,9 @@ const router = useRouter()
           </svg>
         </template>
 
-        <CardLink type="miembros" accent="teal">Miembros</CardLink>
+        <CardLink type="miembros" accent="teal" @click="router.push('/miembros')">
+          Miembros
+        </CardLink>
         <CardLink type="galeria" accent="teal">Galeria</CardLink>
       </DashboardCard>
     </div>
