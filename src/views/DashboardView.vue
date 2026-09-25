@@ -4,7 +4,6 @@
 // ============================================================
 //                        LAYOUT GLOBAL
 // ============================================================
-import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 
 // ============================================================
@@ -21,10 +20,25 @@ import ProjectModal from '../components/dashboard/ProjectModal.vue'
 //                       DATOS DE PROYECTOS
 // ============================================================
 import { PROJECTS, type Project } from '../data/projects'
+import { ref } from 'vue'
+
+// ============================================================
+//                       SESIÓN DE USUARIO
+// ============================================================
+// BACKEND: cuando exista login SSO, estos valores deben salir
+// de useAuth() y pasarse tanto a TopBar como a WelcomeHeader.
+// El nombre "lildud", el 67 de las notis y la foto por defecto
+// están escritos a mano en este archivo. Ningún componente hijo
+// (TopBar, WelcomeHeader) necesita cambiar: ya reciben estos
+// datos como parámetros, no los buscan ellos mismos.
+import { useAuth } from '../composables/useAuth'
+const { isAuthenticated } = useAuth()
 
 const router = useRouter()
 
-// Proyecto activo en el modal (null = cerrado)
+// ============================================================
+//                  MODAL DE PROYECTOS
+// ============================================================
 const activeProject = ref<Project | null>(null)
 
 function openProject(project: Project) {
@@ -56,7 +70,13 @@ function closeProject() {
           </svg>
         </template>
 
-        <CardLink type="perfil" accent="purple" @click="router.push('/perfil')">
+        <!-- Perfil: bloqueado si no hay sesión -->
+        <CardLink
+          type="perfil"
+          accent="purple"
+          :disabled="!isAuthenticated"
+          @click="router.push('/perfil')"
+        >
           Perfil
         </CardLink>
 
@@ -65,6 +85,7 @@ function closeProject() {
         </CardLink>
       </DashboardCard>
 
+      <!-- TO-DO: navegacion individual de cada apartado-->
       <DashboardCard title="Comunidad" accent="teal">
         <template #icon>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
