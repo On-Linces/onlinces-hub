@@ -4,23 +4,41 @@
 // ============================================================
 //                     SALUDO + NOMBRE
 // ============================================================
+import { computed } from 'vue'
+import { useAuth } from '../../composables/useAuth'
 
-// BACKEND: userName debe venir de la sesión real (mismo dato
-// que se le pasa a <TopBar>). Se menciona en App.vue.
+// BACKEND: userName debe venir de la sesión real osea del trasero (mismo dato
+// que se le pasa a <TopBar>). Se menciona creo que en App.vue.
+//
+// Con useAuth integrado, el nombre de la sesión tiene prioridad
+// y la prop actúa como fallback mientras no hay login real.
 interface Props {
   userName?: string
 }
 
-withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<Props>(), {
   userName: 'Invitado'
 })
+
+const { user, isAuthenticated } = useAuth()
+
+// Nombre efectivo: sesión > prop > 'Invitado'
+const displayName = computed(() => {
+  if (isAuthenticated.value && user.value?.name) return user.value.name
+  return props.userName || 'Invitado'
+})
+
+// Saludo distinto según si hay sesión o no
+const greeting = computed(() =>
+  isAuthenticated.value ? 'Hola, bienvenido de nuevo' : 'Hola, bienvenido'
+)
 </script>
 
 <template>
   <div class="welcome-header">
-    <p class="welcome-header__greeting">Hola, bienvenido</p>
+    <p class="welcome-header__greeting">{{ greeting }}</p>
     <h1 class="welcome-header__name">
-      {{ userName }}
+      {{ displayName }}
       <!-- Barra decorativa vacía -->
       <span class="welcome-header__underline" />
     </h1>

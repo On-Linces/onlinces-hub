@@ -52,11 +52,11 @@ function closeProject() {
 
 <template>
   <!-- BACKEND: user-name y unread-notifications -->
-  <TopBar user-name="lildud" :unread-notifications="67" />
+  <TopBar user-name="" :unread-notifications="67" />
 
   <main class="dashboard-body">
     <!-- BACKEND: user-name -->
-    <WelcomeHeader user-name="lildud" />
+    <WelcomeHeader user-name="" />
 
     <!-- ============================================================
                       TARJETAS PEQUEÑAS: Redirecciones
