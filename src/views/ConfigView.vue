@@ -13,9 +13,11 @@ import { useRouter } from 'vue-router'
 import CardShell from '../components/dashboard/CardShell.vue'
 import SettingsToggle from '../components/settings/SettingsToggle.vue'
 import { useTheme } from '../composables/useTheme'
+import { useAuth } from '../composables/useAuth'
 
 const router = useRouter()
 const { settings } = useTheme()
+const { logout, isAuthenticated } = useAuth()
 
 const effectsAsString = computed({
   get: () => (settings.value.effectsEnabled ? 'on' : 'off'),
@@ -24,8 +26,10 @@ const effectsAsString = computed({
   }
 })
 
-function handleLogout() {
-  // BACKEND: aquí debería invalidar la sesión, logout
+async function handleLogout() {
+  // BACKEND: useAuth().logout() ya encapsula la llamada al endpoint
+  // cuando exista. Aquí solo nos preocupamos por la navegación.
+  await logout()
   router.push('/')
 }
 </script>
@@ -77,9 +81,20 @@ function handleLogout() {
 
       <div class="config-section">
         <h3 class="config-section__title">Cuenta</h3>
-        <button class="config-view__logout" @click="handleLogout">
+
+        <!-- BACKEND: si no hay sesión, no tiene sentido mostrar
+             "Cerrar sesión". El botón se oculta hasta que useAuth
+             confirme que hay usuario. -->
+        <button
+          v-if="isAuthenticated"
+          class="config-view__logout"
+          @click="handleLogout"
+        >
           Cerrar sesión
         </button>
+        <p v-else class="config-view__no-session">
+          Inicia sesión para administrar tu cuenta.
+        </p>
       </div>
     </CardShell>
   </main>
@@ -103,7 +118,7 @@ function handleLogout() {
   background: none;
   border: none;
   color: var(--text-muted);
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-family);
   font-size: 1rem;
   cursor: pointer;
   padding: 0.5rem 0;
@@ -124,11 +139,11 @@ function handleLogout() {
 }
 
 .config-section__title {
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-family);
   font-size: 0.85rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: var(--text-faint);
+  color: var(--text-muted);
   margin: 0 0 0.5rem;
 }
 
@@ -138,7 +153,7 @@ function handleLogout() {
   border: 1px solid rgba(255, 85, 85, 0.4);
   padding: 0.6rem 1.2rem;
   border-radius: var(--radius-sm);
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-family);
   font-weight: 600;
   cursor: pointer;
   transition: background var(--transition-speed) ease;
@@ -146,5 +161,13 @@ function handleLogout() {
 
 .config-view__logout:hover {
   background: rgba(255, 85, 85, 0.3);
+}
+
+.config-view__no-session {
+  margin: 0;
+  font-family: var(--font-family);
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  font-style: italic;
 }
 </style>

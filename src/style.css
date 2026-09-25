@@ -85,39 +85,39 @@ body {
 }
 
 /* ============================================================
-   TEMA CLARO
+   TEMA CLARO (Suavizado)
 ============================================================ */
 html.theme-light {
   /* --- Colores de fondo --- */
-  --bg-body: #fcf6ca;
-  --bg-surface: rgb(255, 255, 255);
-  --bg-card: #ffffffc0;
+  --bg-body: #f4f5f8; /* Gris azulado muy suave, descansa la vista */
+  --bg-surface: rgba(255, 255, 255, 0.75); /* Blanco translúcido para el efecto cristal */
+  --bg-card: rgba(255, 255, 255, 0.55); /* Más transparente para que se funda con el fondo */
   --bg-hover: rgba(15, 23, 42, 0.04);
 
   /* --- Colores de texto --- */
-  --text-primary: #0f172a;
-  --text-muted: #262729;
-  --text-inverse: #404040;
+  --text-primary: #1a1e24; /* Gris pizarra oscuro, menos agresivo que el negro puro */
+  --text-muted: #2a313a; /* Gris medio para textos secundarios */
+  --text-inverse: #f8f8f2;
 
-  /* --- Colores de acento --- */
-  --accent-teal: #08635c;
+  /* --- Colores de acento (Más vibrantes y menos pesados) --- */
+  --accent-teal: #0d9488;
   --accent-teal-dim: rgba(13, 148, 136, 0.08);
-  --accent-teal-glow: rgba(13, 148, 136, 0.25);
-  --accent-teal-grid: rgba(13, 148, 136, 0.5);
+  --accent-teal-glow: rgba(13, 148, 136, 0.2);
+  --accent-teal-grid: rgba(13, 148, 136, 0.15);
 
-  --accent-purple: #2b0966;
+  --accent-purple: #7c3aed;
   --accent-purple-dim: rgba(124, 58, 237, 0.08);
-  --accent-purple-glow: rgba(124, 58, 237, 0.25);
-  --accent-purple-grid: rgba(124, 58, 237, 0.5);
+  --accent-purple-glow: rgba(124, 58, 237, 0.2);
+  --accent-purple-grid: rgba(124, 58, 237, 0.15);
 
-  --accent-pink: #57072b;
+  --accent-pink: #db2777;
   --accent-pink-dim: rgba(219, 39, 119, 0.08);
-  --accent-pink-glow: rgba(219, 39, 119, 0.25);
-  --accent-pink-grid: rgba(219, 39, 119, 0.5);
+  --accent-pink-glow: rgba(219, 39, 119, 0.2);
+  --accent-pink-grid: rgba(219, 39, 119, 0.15);
 
   /* --- Bordes y sombras --- */
-  --border-color: rgba(15, 23, 42, 0.08);
-  --shadow-glow: 0 10px 30px 0 rgba(15, 23, 42, 0.06);
+  --border-color: rgba(15, 23, 42, 0.05); /* Bordes mucho más sutiles */
+  --shadow-glow: 0 8px 30px 0 rgba(15, 23, 42, 0.03); /* Sombra difuminada para no ensuciar */
 
   /* --- Imagen de fondo clara --- */
   --bg-image: url('./assets/images/background_light.png');
