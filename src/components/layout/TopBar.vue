@@ -6,6 +6,7 @@
 // ============================================================
 import { computed } from 'vue'
 import { useTheme } from '../../composables/useTheme'
+import { useAuth } from '../../composables/useAuth'
 
 // ============================================================
 //                       ASSETS ESTÁTICOS
@@ -14,6 +15,7 @@ import logoDark from '../../assets/images/logo_dark.webp'
 import logoLight from '../../assets/images/logo_light.webp'
 
 const { settings } = useTheme()
+const { user, isAuthenticated } = useAuth()
 
 // Si el tema es light, usa la versión light; si no, la dark.
 const currentLogo = computed(() => 
@@ -25,6 +27,10 @@ const currentLogo = computed(() =>
 // del sistema de sesión/SSO cuando exista. No hace falta cambiar
 // nada de este componente: solo quien lo usa debe pasarle valores
 // reales en vez de los defaults de abajo.
+//
+// Con la llegada de useAuth, estos props actúan como FALLBACK:
+// si hay sesión activa, los datos de la sesión tienen prioridad;
+// si no, se usan los props (útil mientras el backend no exista).
 interface Props {
     userName?: string          // nombre a mostrar junto al avatar
     avatarUrl?: string          // URL de la foto; si viene vacío, se
@@ -39,10 +45,19 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 // TO-DO: panel de notificaciones
+// Se añade 'loginClick' para abrir el modal de autenticación global.
 const emit = defineEmits<{
     notificationClick: []
     profileClick: []
+    loginClick: []
 }>()
+
+// Datos efectivos: sesión > props
+const displayName = computed(() => user.value?.name ?? props.userName)
+const displayAvatar = computed(() => user.value?.avatarUrl ?? props.avatarUrl)
+const displayUnread = computed(
+    () => user.value?.unreadNotifications ?? props.unreadNotifications
+)
 </script>
 
 <template>
@@ -56,33 +71,49 @@ const emit = defineEmits<{
         </div>
 
         <div class="topbar__actions">
-            <!-- Botón de notificaciones -->
+            <!-- ============================================================
+                 SIN SESIÓN: solo botón de login
+            ============================================================ -->
             <button
-                class="topbar__icon-btn"
-                aria-label="Notificaciones"
-                @click="emit('notificationClick')"
+                v-if="!isAuthenticated"
+                class="topbar__login"
+                @click="emit('loginClick')"
             >
-                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" />
-                    <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
-                </svg>
-
-                <!-- El numero solo aparece si hay notificaciones sin leer -->
-                <span v-if="props.unreadNotifications > 0" class="topbar__badge">
-                    {{ props.unreadNotifications }}
-                </span>
+                Iniciar sesión
             </button>
 
-            <!-- Perfil de usuario -->
-            <button class="topbar__profile" @click="emit('profileClick')">
-                <div class="topbar__avatar">
-                    <!-- Si hay avatarUrl (foto del SSO), se muestra la imagen.
-                         Si no, cae al fallback: inicial del nombre en mayúscula.-->
-                    <img v-if="props.avatarUrl" :src="props.avatarUrl" :alt="props.userName" />
-                    <span v-else>{{ props.userName.charAt(0).toUpperCase() }}</span>
-                </div>
-                <span class="topbar__username">{{ props.userName }}</span>
-            </button>
+            <!-- ============================================================
+                 CON SESIÓN: campana + perfil
+            ============================================================ -->
+            <template v-else>
+                <!-- Botón de notificaciones -->
+                <button
+                    class="topbar__icon-btn"
+                    aria-label="Notificaciones"
+                    @click="emit('notificationClick')"
+                >
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" />
+                        <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
+                    </svg>
+
+                    <!-- El numero solo aparece si hay notificaciones sin leer -->
+                    <span v-if="displayUnread > 0" class="topbar__badge">
+                        {{ displayUnread }}
+                    </span>
+                </button>
+
+                <!-- Perfil de usuario -->
+                <button class="topbar__profile" @click="emit('profileClick')">
+                    <div class="topbar__avatar">
+                        <!-- Si hay avatarUrl (foto del SSO), se muestra la imagen.
+                             Si no, cae al fallback: inicial del nombre en mayúscula.-->
+                        <img v-if="displayAvatar" :src="displayAvatar" :alt="displayName" />
+                        <span v-else>{{ displayName.charAt(0).toUpperCase() }}</span>
+                    </div>
+                    <span class="topbar__username">{{ displayName }}</span>
+                </button>
+            </template>
         </div>
     </header>
 </template>
@@ -144,6 +175,29 @@ const emit = defineEmits<{
   display: flex;
   align-items: center;
   gap: 1.5rem;
+}
+
+/* ------------------------------------------------------------
+                        Botón de login
+------------------------------------------------------------ */
+.topbar__login {
+  padding: 0.5rem 1.1rem;
+  background: var(--accent-purple-dim);
+  color: var(--accent-purple);
+  border: 1px solid var(--accent-purple);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-family);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-speed) ease;
+}
+
+.topbar__login:hover {
+  background: var(--accent-purple);
+  color: var(--text-primary);
+  box-shadow: 0 0 15px var(--accent-purple-glow);
+  transform: var(--hover-transform);
 }
 
 .topbar__icon-btn {

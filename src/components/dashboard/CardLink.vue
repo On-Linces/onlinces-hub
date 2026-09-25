@@ -7,24 +7,35 @@
 interface Props {
   accent?: 'teal' | 'purple'
   type: 'perfil' | 'configuracion' | 'miembros' | 'galeria'
+  disabled?: boolean   // <-- NUEVO: bloquea click y aplica estilos apagados
 }
 
-withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<Props>(), {
   accent: 'teal',
-  type: 'perfil'
+  type: 'perfil',
+  disabled: false
 })
 
 // TO-DO: redireccionar al lugar especificado
-defineEmits<{
+const emit = defineEmits<{
   click: []
 }>()
+
+// Envuelve la emisión para cortar el click cuando está deshabilitado.
+// Aunque el <button> también lleva :disabled, esto es defensa extra.
+function handleClick() {
+  if (props.disabled) return
+  emit('click')
+}
 </script>
 
 <template>
   <button 
     class="card-link" 
-    :class="`card-link--${accent}`"
-    @click="$emit('click')"
+    :class="[`card-link--${accent}`, { 'card-link--disabled': disabled }]"
+    :disabled="disabled"
+    :aria-disabled="disabled"
+    @click="handleClick"
   >
 
     <div class="card-link__doodles">
@@ -157,5 +168,22 @@ defineEmits<{
 }
 .card-link:hover .doodle-4 {
   transform: rotate(25deg) scale(1) translate(-10px, -6px);
+}
+
+/* ------------------------------------------------------------
+   Estado deshabilitado: sin hover, sin doodles, cursor bloqueado
+------------------------------------------------------------ */
+.card-link--disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.card-link--disabled:hover {
+  background: transparent;
+  color: var(--text-primary);
+}
+
+.card-link--disabled:hover .card-link__doodles {
+  opacity: 0;
 }
 </style>
